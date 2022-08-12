@@ -37,6 +37,13 @@ class PostController extends Controller
 
     public function MahasiswaBaruImport(Request $request)
     {
+
+        $request->validate([
+            // validation file must excel file, required and maks size 15 mb
+            'file' => 'required|mimes:xls,xlsx|max:15000'
+        ]);
+        dd($request->all());
+
         $file = $request->file('file');
         $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
         $request->file->move('file_upload',$filename);

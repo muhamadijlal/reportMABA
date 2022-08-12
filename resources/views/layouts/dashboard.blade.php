@@ -79,7 +79,7 @@
         <div class="modal-body">
           <div class="row">
               <div class="input-group">
-                <input type="file" name="file" class="form-control" required>            
+                <input type="file" name="file" class="form-control">
               </div>
             </div>        
           </div>
