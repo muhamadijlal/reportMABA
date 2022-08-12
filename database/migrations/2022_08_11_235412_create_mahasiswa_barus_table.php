@@ -16,7 +16,7 @@ class CreateMahasiswaBarusTable extends Migration
         Schema::create('ms_maba', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('nim');
+            $table->string('nim')->unique();
             $table->string('program_studi');
             $table->timestamps();
         });

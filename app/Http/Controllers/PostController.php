@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\MahasiswaBaruExport;
+use App\Imports\MahasiswaBaruImport;
 use App\Models\MahasiswaBaru;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
@@ -32,6 +33,22 @@ class PostController extends Controller
     public function MahasiswaBaruExport()  
     {
         return Excel::download(new MahasiswaBaruExport, 'mahasiswabaru.xlsx');
+    }
+
+    public function MahasiswaBaruImport(Request $request)
+    {
+        $file = $request->file('file');
+        $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
+        $request->file->move('file_upload',$filename);
+
+        $import = new MahasiswaBaruImport;
+        $import->import(public_path('/file_upload/'.$filename));
+        
+        if($import->failures()->isNotEmpty()) {
+            return back()->withFailures($import->failures());
+        }
+
+        return redirect('/')->withStatus('Excel file imported successfully');        
     }
 
     /**
