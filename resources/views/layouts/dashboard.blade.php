@@ -50,6 +50,34 @@
           Import Excel
         </button>
       </div>
+      <div class="my-4">
+        <div class="row">
+          <div class="col-lg-2 col-md-4 col-6 mb-3">
+            <label for="PeriodeSelect" class="form-label">Periode From</label>
+            <select id="PeriodeSelect" name="period_from" class="form-select">
+              <option>Periode From</option>
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+            </select>          
+          </div>
+          <div class="col-lg-2 col-md-4 col-6 mb-3"> 
+            <label for="PeriodeSelect" class="form-label">Periode To</label>
+            <select id="PeriodeSelect" name="period_to" class="form-select">
+              <option>Periode To</option>
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+            </select>          
+          </div>
+        </div>
+      </div>
       <table class="table table-striped" id="myTable">
         <thead>
           <tr>
