@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MahasiswaBaruExport;
+use App\Models\MahasiswaBaru;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Models\Post;
 
@@ -19,9 +22,16 @@ class PostController extends Controller
 
     public function json()
     {
-        $data = Post::orderBy('id','desc')->get();
+        $data = MahasiswaBaru::orderBy('id','desc')->get();
 
-        return datatables()->of($data)->make(true);
+        return datatables()
+                ->of($data)
+                ->make(true);
+    }
+
+    public function MahasiswaBaruExport()  
+    {
+        return Excel::download(new MahasiswaBaruExport, 'mahasiswabaru.xlsx');
     }
 
     /**

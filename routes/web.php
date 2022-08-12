@@ -16,3 +16,4 @@ use App\Http\Controllers\PostController;
 
 Route::get('/', [PostController::class, 'index']);
 Route::get('/json', [PostController::class, 'json']);
+Route::get('/export', [PostController::class, 'MahasiswaBaruExport']);

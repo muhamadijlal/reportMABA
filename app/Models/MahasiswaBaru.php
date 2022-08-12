@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class MahasiswaBaru extends Model
 {
     use HasFactory;
 
-    // protected $table = 'ms_maba';
-    // protected $fillable = ['name', 'nim', 'program_studi'];
+    protected $table = 'ms_maba';
+    protected $fillable = ['name', 'nim', 'program_studi'];
 }
