@@ -23,6 +23,36 @@
   </div>
 </div>
 
+<div class="container my-4">
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-6 mb-3">
+      <select id="PeriodeSelect" name="period_from" class="form-select">
+        <option>Periode From</option>
+        <option value="2017">2017</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+      </select>          
+    </div>
+    <div class="col-lg-4 col-md-4 col-6 mb-3">       
+      <select id="PeriodeSelect" name="period_to" class="form-select">
+        <option>Periode To</option>
+        <option value="2017">2017</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+      </select>          
+    </div>
+    <div class="col-lg-4 col-md-4 col-6 mb-3">
+      <button class="btn btn-md btn-primary" id="show-table">Submit</button>
+    </div>
+  </div>
+</div>
+
 <div class="col-lg-12 mb-4 order-0">  
   <div class="card">
     <h5 class="card-header">Table Mahasiswa</h5>
@@ -50,34 +80,7 @@
           Import Excel
         </button>
       </div>
-      <div class="my-4">
-        <div class="row">
-          <div class="col-lg-2 col-md-4 col-6 mb-3">
-            <label for="PeriodeSelect" class="form-label">Periode From</label>
-            <select id="PeriodeSelect" name="period_from" class="form-select">
-              <option>Periode From</option>
-              <option value="2017">2017</option>
-              <option value="2018">2018</option>
-              <option value="2019">2019</option>
-              <option value="2020">2020</option>
-              <option value="2021">2021</option>
-              <option value="2022">2022</option>
-            </select>          
-          </div>
-          <div class="col-lg-2 col-md-4 col-6 mb-3"> 
-            <label for="PeriodeSelect" class="form-label">Periode To</label>
-            <select id="PeriodeSelect" name="period_to" class="form-select">
-              <option>Periode To</option>
-              <option value="2017">2017</option>
-              <option value="2018">2018</option>
-              <option value="2019">2019</option>
-              <option value="2020">2020</option>
-              <option value="2021">2021</option>
-              <option value="2022">2022</option>
-            </select>          
-          </div>
-        </div>
-      </div>
+      
       <table class="table table-striped" id="myTable">
         <thead>
           <tr>
@@ -127,16 +130,16 @@
 <script>
   $(document).ready( function () {
     $('#myTable').DataTable({
-        processing: true,
-        autoWidth: false,        
-        serverSide: true,
-        ajax: '/json',
-        columns: [
-            { data: 'id', name: 'id' },
-            { data: 'name', name: 'name' },
-            { data: 'nim', name: 'nim' },
-            { data: 'program_studi', name: 'program_studi' },            
-        ]
+      processing: true,
+      autoWidth: false,        
+      serverSide: true,
+      ajax: '/json',
+      columns: [
+        { data: 'id', name: 'id' },
+        { data: 'name', name: 'name' },
+        { data: 'nim', name: 'nim' },
+        { data: 'program_studi', name: 'program_studi' },            
+      ]
     });
   });
 </script>

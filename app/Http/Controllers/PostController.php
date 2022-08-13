@@ -22,17 +22,18 @@ class PostController extends Controller
     }
 
     public function json()
-    {
+    {        
         $data = MahasiswaBaru::orderBy('id','desc')->get();
 
         return datatables()
                 ->of($data)
+                ->addIndexColumn()
                 ->make(true);
     }
 
     public function MahasiswaBaruExport()  
     {
-        return Excel::download(new MahasiswaBaruExport, 'mahasiswabaru.xlsx');
+        return Excel::download(new MahasiswaBaruExport, 'mahasiswabaru.xlsx');       
     }
 
     public function MahasiswaBaruImport(Request $request)
