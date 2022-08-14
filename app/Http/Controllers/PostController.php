@@ -18,44 +18,47 @@ class PostController extends Controller
      */
     public function index()
     {
-       return view('layouts.dashboard');
+
+      $data = MahasiswaBaru::select('periode')->distinct()->get();
+
+       return view('layouts.dashboard',compact('data'));
     }
 
     public function json()
-    {        
-        $data = MahasiswaBaru::orderBy('id','desc')->get();
+    {      
+      $data = MahasiswaBaru::orderBy('id','desc')->get();
 
-        return datatables()
-                ->of($data)
-                ->addIndexColumn()
-                ->make(true);
+      return datatables()
+          ->of($data)
+          ->addIndexColumn()
+          ->make(true);
     }
 
-    public function MahasiswaBaruExport()  
-    {
-        return Excel::download(new MahasiswaBaruExport, 'mahasiswabaru.xlsx');       
-    }
+    // public function MahasiswaBaruExport()  
+    // {
+    //     return Excel::download(new MahasiswaBaruExport, 'mahasiswabaru.xlsx');       
+    // }
 
     public function MahasiswaBaruImport(Request $request)
     {
 
-        $request->validate([
-            // validation file must excel file, required and maks size 15 mb
-            'file' => 'required|mimes:xls,xlsx|max:15000'
-        ]);
+      $request->validate([
+          // validation file must excel file, required and maks size 15 mb
+          'file' => 'required|mimes:xls,xlsx|max:15000'
+      ]);
 
-        $file = $request->file('file');
-        $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
-        $request->file->move('file_upload',$filename);
+      $file = $request->file('file');
+      $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
+      $request->file->move('file_upload',$filename);
 
-        $import = new MahasiswaBaruImport;
-        $import->import(public_path('/file_upload/'.$filename));        
-        
-        if($import->failures()->isNotEmpty()) {
-            return back()->withFailures($import->failures());
-        }
+      $import = new MahasiswaBaruImport;
+      $import->import(public_path('/file_upload/'.$filename));        
+      
+      if($import->failures()->isNotEmpty()) {
+          return back()->withFailures($import->failures());
+      }
 
-        return redirect('/dashboard')->withStatus('Excel file imported successfully');        
+      return redirect('/dashboard')->withStatus('Excel file imported successfully');        
     }
 
     /**

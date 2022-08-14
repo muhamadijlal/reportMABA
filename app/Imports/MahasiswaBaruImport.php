@@ -2,7 +2,6 @@
 
 namespace App\Imports;
 
-use Throwable;
 use App\Models\MahasiswaBaru;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -25,17 +24,35 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
     */
     public function model(array $row)
     {
+        // dd($row);
+
         return new MahasiswaBaru([
-            'nama'          => $row['nama'],
-            'nim'           => $row['nim'],
-            'program_studi' => $row['program_studi'],
+
+            'virtual_account'=> $row['va'],
+            'email'          => $row['email'],
+            'no_hp'          => $row['nohp'],
+            'no_hp_ayah'     => $row['nohp_ayah'],
+            'no_hp_ibu'      => $row['nohp_ibu'],
+            'nama'           => $row['nama'],
+            'sekolah'        => $row['sekolah'],
+            'gelombang'      => $row['gelombang'],
+            'tahun_lulus'    => $row['tahun_lulus'],
+            'pilihan_prodi'  => $row['pilihan_prodi_1'],
+            'register'       => $row['register'],
+            'ujian'          => $row['ujian'],
+            'bayar'          => $row['bayar_1'],
+            'upload'         => $row['upload'],
+            'ukuran_baju'    => $row['ukuran_baju'],
+            'ukuran_baju'    => $row['ukuran_baju'],
+            'periode'        => $row['periode'],
         ]);
     }
 
     public function rules(): array
     {
         return [
-            '*.nim' => ['unique:ms_maba,nim']
+            '*.virtual_account' => ['unique:ms_maba,virtual_account'],
+            '*.email' => ['unique:ms_maba,email']
         ];
     }
 
@@ -43,8 +60,4 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
     {
         return 2;
     }
-
-    // public function onFailure(Failure ...$failure)
-    // {
-    // }
 }

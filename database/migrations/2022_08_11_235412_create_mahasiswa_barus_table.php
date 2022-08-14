@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Validation\Rules\Unique;
 
 class CreateMahasiswaBarusTable extends Migration
 {
@@ -15,9 +16,22 @@ class CreateMahasiswaBarusTable extends Migration
     {
         Schema::create('ms_maba', function (Blueprint $table) {
             $table->id();
+            $table->string('virtual_account')->unique();
+            $table->string('email')->unique();
+            $table->string('no_hp');
+            $table->string('no_hp_ayah')->nullable();
+            $table->string('no_hp_ibu')->nullable();
             $table->string('nama');
-            $table->string('nim')->unique();
-            $table->string('program_studi');
+            $table->string('sekolah');
+            $table->string('gelombang');
+            $table->string('tahun_lulus');
+            $table->string('pilihan_prodi');
+            $table->string('register');
+            $table->string('ujian');
+            $table->string('bayar');
+            $table->string('upload');
+            $table->string('ukuran_baju')->nullable();            
+            $table->string('periode');
             $table->timestamps();
         });
     }

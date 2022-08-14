@@ -29,25 +29,19 @@
 <div class="container my-4">
   <div class="row">
     <div class="col-lg-4 col-md-4 col-6 mb-3">
-      <select id="PeriodeSelect" name="period_from" class="form-select">
+      <select id="PeriodeSelectFrom" name="period_from" class="form-select filter">
         <option>Periode From</option>
-        <option value="2017">2017</option>
-        <option value="2018">2018</option>
-        <option value="2019">2019</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-        <option value="2022">2022</option>
+        @foreach ($data as $value)        
+          <option value="{{ $value->periode }}">{{ $value->periode }}</option>
+        @endforeach
       </select>          
     </div>
     <div class="col-lg-4 col-md-4 col-6 mb-3">       
-      <select id="PeriodeSelect" name="period_to" class="form-select">
+      <select id="PeriodeSelectTo" name="period_to" class="form-select filter">
         <option>Periode To</option>
-        <option value="2017">2017</option>
-        <option value="2018">2018</option>
-        <option value="2019">2019</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-        <option value="2022">2022</option>
+        @foreach ($data as $value)        
+          <option value="{{ $value->periode }}">{{ $value->periode }}</option>
+        @endforeach
       </select>          
     </div>
     <div class="col-lg-4 col-md-4 col-6 mb-3">
@@ -88,9 +82,21 @@
         <thead>
           <tr>
             <th>No</th>
+            <th>virtual Account</th>
+            <th>Email</th>
+            <th>Nomor Handphone</th>
+            <th>Nomor Handphone Ayah</th>
+            <th>Nomor Handphone Ibu</th>
             <th>Nama</th>
-            <th>nim</th>
-            <th>program studi</th>
+            <th>Sekolah</th>
+            <th>Gelombang</th>
+            <th>Tahun Lulus</th>
+            <th>Pilihan Prodi</th>
+            <th>Register</th>
+            <th>Ujian</th>
+            <th>Upload</th>
+            <th>Ukuran Baju</th>
+            <th>Periode</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0"></tbody>
@@ -150,20 +156,35 @@
       buttons: [
         'copy','excel'
       ],      
-      autoWidth: false,        
+      // autoWidth: false,        
       serverSide: true,
-      ajax: '/json',
+      ajax: {
+        url: '/json',
+        type: 'POST',        
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      },
       columns: [
         { data: 'DT_RowIndex' },
+        { data: 'virtual_account', name: 'virtual_account' },
+        { data: 'email', name: 'email' },
+        { data: 'no_hp', name: 'no_hp' },
+        { data: 'no_hp_ayah', name: 'no_hp_ayah' },
+        { data: 'no_hp_ibu', name: 'no_hp_ibu' },
         { data: 'nama', name: 'nama' },
-        { data: 'nim', name: 'nim' },
-        { data: 'program_studi', name: 'program_studi' },            
+        { data: 'sekolah', name: 'sekolah' },
+        { data: 'gelombang', name: 'gelombang' },
+        { data: 'tahun_lulus', name: 'tahun_lulus' },
+        { data: 'pilihan_prodi', name: 'pilihan_prodi' },
+        { data: 'register', name: 'register' },
+        { data: 'ujian', name: 'ujian' },
+        { data: 'upload', name: 'upload' },
+        { data: 'ukuran_baju', name: 'ukuran_baju' },
+        { data: 'periode', name: 'periode' },
       ]
-    });
-    table.buttons().container()
-    .appendTo( $('.col-sm-6:eq(0)', table.table().container() ) );
+    });    
   });
-  
 </script>
 <script src="{{ asset('assets/js/ui-modals.js') }}"></script>
 @endpush

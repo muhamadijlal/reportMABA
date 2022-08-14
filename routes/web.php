@@ -26,7 +26,7 @@ use App\Http\Controllers\RegisterController;
 
 // Route::middleware('auth')->group( function(){
   Route::get('/dashboard', [PostController::class, 'index']);
-  Route::get('/json', [PostController::class, 'json']);
+  Route::post('/json', [PostController::class, 'json']);
   // Route::get('/export', [PostController::class, 'MahasiswaBaruExport']);
   Route::post('/import', [PostController::class, 'MahasiswaBaruImport']);
 //   Route::post('/logout', [LoginController::class, 'logout']);
