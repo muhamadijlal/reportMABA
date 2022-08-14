@@ -16,19 +16,19 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-Route::middleware('guest')->group( function() {
-  Route::get('/', function () {return redirect('/login');});
-  Route::get('/login', [LoginController::class, 'index'])->name('login');
-  Route::post('/login', [LoginController::class, 'authenticate']);
-  Route::get('/register',[RegisterController::class, 'index']);
-  Route::post('/register',[RegisterController::class, 'store']);
-});
+// Route::middleware('guest')->group( function() {
+//   Route::get('/', function () {return redirect('/login');});
+//   Route::get('/login', [LoginController::class, 'index'])->name('login');
+//   Route::post('/login', [LoginController::class, 'authenticate']);
+//   Route::get('/register',[RegisterController::class, 'index']);
+//   Route::post('/register',[RegisterController::class, 'store']);
+// });
 
-Route::middleware('auth')->group( function(){
+// Route::middleware('auth')->group( function(){
   Route::get('/dashboard', [PostController::class, 'index']);
   Route::get('/json', [PostController::class, 'json']);
-  Route::get('/export', [PostController::class, 'MahasiswaBaruExport']);
+  // Route::get('/export', [PostController::class, 'MahasiswaBaruExport']);
   Route::post('/import', [PostController::class, 'MahasiswaBaruImport']);
-  Route::post('/logout', [LoginController::class, 'logout']);
-}); 
+//   Route::post('/logout', [LoginController::class, 'logout']);
+// }); 
 

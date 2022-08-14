@@ -1,7 +1,10 @@
 @extends('master')
 
 @push('css')
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/b-2.2.3/b-html5-2.2.3/datatables.min.css"/>
+{{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/b-2.2.3/b-html5-2.2.3/datatables.min.css"/> --}}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css"/>
 @endpush
 
 @section('content')
@@ -75,7 +78,7 @@
         </div>
       @endif
       <div class="my-4">
-        <a href="/export" class="btn btn-md btn-success">Export Excel</a>
+        {{-- <a href="/export" class="btn btn-md btn-success">Export Excel</a> --}}
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCenter">
           Import Excel
         </button>
@@ -126,22 +129,41 @@
 @endsection
 
 @push('script')
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/b-2.2.3/b-html5-2.2.3/datatables.min.js"></script>
+{{-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/b-2.2.3/b-html5-2.2.3/datatables.min.js"></script> --}}
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+
 <script>
   $(document).ready( function () {
-    $('#myTable').DataTable({
+    let table = $('#myTable').DataTable({
       processing: true,
+      dom:"lBfrtip",
+      buttons: [
+        'copy','excel'
+      ],      
       autoWidth: false,        
       serverSide: true,
       ajax: '/json',
       columns: [
-        { data: 'id', name: 'id' },
-        { data: 'name', name: 'name' },
+        { data: 'DT_RowIndex' },
+        { data: 'nama', name: 'nama' },
         { data: 'nim', name: 'nim' },
         { data: 'program_studi', name: 'program_studi' },            
       ]
     });
+    table.buttons().container()
+    .appendTo( $('.col-sm-6:eq(0)', table.table().container() ) );
   });
+  
 </script>
 <script src="{{ asset('assets/js/ui-modals.js') }}"></script>
 @endpush

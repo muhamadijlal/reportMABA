@@ -43,20 +43,19 @@ class PostController extends Controller
             // validation file must excel file, required and maks size 15 mb
             'file' => 'required|mimes:xls,xlsx|max:15000'
         ]);
-        dd($request->all());
 
         $file = $request->file('file');
         $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
         $request->file->move('file_upload',$filename);
 
         $import = new MahasiswaBaruImport;
-        $import->import(public_path('/file_upload/'.$filename));
+        $import->import(public_path('/file_upload/'.$filename));        
         
         if($import->failures()->isNotEmpty()) {
             return back()->withFailures($import->failures());
         }
 
-        return redirect('/')->withStatus('Excel file imported successfully');        
+        return redirect('/dashboard')->withStatus('Excel file imported successfully');        
     }
 
     /**

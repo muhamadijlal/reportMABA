@@ -26,7 +26,7 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
     public function model(array $row)
     {
         return new MahasiswaBaru([
-            'name'          => $row['name'],
+            'nama'          => $row['nama'],
             'nim'           => $row['nim'],
             'program_studi' => $row['program_studi'],
         ]);
@@ -37,6 +37,11 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
         return [
             '*.nim' => ['unique:ms_maba,nim']
         ];
+    }
+
+    public function headingRow(): int
+    {
+        return 2;
     }
 
     // public function onFailure(Failure ...$failure)
