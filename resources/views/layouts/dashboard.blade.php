@@ -2,7 +2,6 @@
 
 @push('css')
 {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/b-2.2.3/b-html5-2.2.3/datatables.min.css"/> --}}
-
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"/>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css"/>
 @endpush
@@ -117,11 +116,9 @@
       <form method="POST" action="/import" enctype="multipart/form-data">
       @csrf
         <div class="modal-body">
-          <div class="row">
-              <div class="input-group">
-                <input type="file" name="file" class="form-control">
-              </div>
-            </div>        
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Input file <span style="color: red; font-size: 10px; font-style: italic; text-transform: lowercase;">file must be .xslx .xls and max 15mb</span></label>
+            <input type="file" name="file" class="form-control" id="formFile">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
@@ -135,18 +132,16 @@
 @endsection
 
 @push('script')
-{{-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/b-2.2.3/b-html5-2.2.3/datatables.min.js"></script> --}}
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/b-2.2.3/b-html5-2.2.3/datatables.min.js"></script>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap5.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 
 <script>
   let periodFrom = $('#PeriodeSelectFrom').val();
@@ -157,7 +152,11 @@
       dom:"lBfrtip",
       buttons: [
         'copy','excel'
-      ],      
+      ],
+      aLengthMenu: [
+        [25, 50, 100, 200, -1],
+        [25, 50, 100, 200, "All"]
+      ],
       // autoWidth: false,        
       serverSide: true,
       ajax: {

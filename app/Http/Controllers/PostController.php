@@ -11,129 +11,125 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index()
+  {
+
+    $data = MahasiswaBaru::select('periode')->distinct()->get();
+
+      return view('layouts.dashboard',compact('data'));
+  }
+
+  public function json(Request $request)
+  {              
+    if($request->input('periodFrom') != null){
+      $from = $request->periodFrom;
+      $to = $request->periodTo;
+      $data = MahasiswaBaru::whereBetween('periode',[$from, $to])
+                            ->orderBy('id','desc')
+                            ->get();
+    }
+    else
     {
-
-      $data = MahasiswaBaru::select('periode')->distinct()->get();
-
-       return view('layouts.dashboard',compact('data'));
+      $data = MahasiswaBaru::orderBy('id','desc')->get();
     }
 
-    public function json(Request $request)
-    {              
-      if($request->input('periodFrom') != null){
-        $from = $request->periodFrom;
-        $to = $request->periodTo;
-        $data = MahasiswaBaru::whereBetween('periode',[$from, $to])
-                              ->orderBy('id','desc')
-                              ->get();
-      }
-      else
-      {
-        $data = MahasiswaBaru::orderBy('id','desc')->get();
-      }
+    return datatables()
+          ->of($data)
+          ->addIndexColumn()
+          ->make(true);
+  }
 
-      return datatables()
-            ->of($data)
-            ->addIndexColumn()
-            ->make(true);
+
+  public function MahasiswaBaruImport(Request $request)
+  {
+
+    $request->validate([
+        // validation file must excel file, required and maks size 15 mb
+        'file' => 'required|mimes:xls,xlsx|max:15000'
+    ]);
+
+    $file = $request->file('file');
+    $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
+    $request->file->move('file_upload',$filename);
+
+    $import = new MahasiswaBaruImport;
+    $import->import(public_path('/file_upload/'.$filename));
+    
+    if($import->failures()->isNotEmpty()) {
+      return back()->withFailures($import->failures());
     }
 
-    // public function MahasiswaBaruExport()  
-    // {
-    //     return Excel::download(new MahasiswaBaruExport, 'mahasiswabaru.xlsx');       
-    // }
+    return redirect('/dashboard')->withStatus('Excel file imported successfully');
+  }
 
-    public function MahasiswaBaruImport(Request $request)
-    {
+  /**
+   * Show the form for creating a new resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function create()
+  {
+      //
+  }
 
-      $request->validate([
-          // validation file must excel file, required and maks size 15 mb
-          'file' => 'required|mimes:xls,xlsx|max:15000'
-      ]);
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @return \Illuminate\Http\Response
+   */
+  public function store(Request $request)
+  {
+      //
+  }
 
-      $file = $request->file('file');
-      $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
-      $request->file->move('file_upload',$filename);
+  /**
+   * Display the specified resource.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function show($id)
+  {
+      //
+  }
 
-      $import = new MahasiswaBaruImport;
-      $import->import(public_path('/file_upload/'.$filename));        
-      
-      if($import->failures()->isNotEmpty()) {
-          return back()->withFailures($import->failures());
-      }
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function edit($id)
+  {
+      //
+  }
 
-      return redirect('/dashboard')->withStatus('Excel file imported successfully');        
-    }
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function update(Request $request, $id)
+  {
+      //
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy($id)
+  {
+      //
+  }
 }

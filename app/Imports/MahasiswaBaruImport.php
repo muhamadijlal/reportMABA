@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Validators\Failure;
 
 class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, WithValidation, SkipsOnFailure
@@ -27,7 +28,6 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
         // dd($row);
 
         return new MahasiswaBaru([
-
             'virtual_account'=> $row['va'],
             'email'          => $row['email'],
             'no_hp'          => $row['nohp'],
@@ -44,7 +44,7 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
             'upload'         => $row['upload'],
             'ukuran_baju'    => $row['ukuran_baju'],
             'ukuran_baju'    => $row['ukuran_baju'],
-            'periode'        => $row['periode'],
+            'periode'        => Str::substr($row['va'], 0, 4),
         ]);
     }
 
