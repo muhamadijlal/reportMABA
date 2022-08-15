@@ -12,6 +12,6 @@ class MahasiswaBaruExport implements FromCollection
     */
     public function collection()
     {
-        return MahasiswaBaru::all();
+        // return MahasiswaBaru::all();
     }
 }

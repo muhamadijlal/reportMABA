@@ -12,8 +12,8 @@
     <div class="d-flex align-items-end row">
       <div class="col-sm-7">
         <div class="card-body">
-          <h5 class="card-title text-primary">Welcome! 🎉</h5>
-          <p class="mb-4">You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in your profile.</p>      
+          <h3 class="card-title text-primary">Selamat Datang! 🎉</h3>
+          <p class="mb-4">Selamat datang di web rekap data mahasiswa baru. silahkan import data rekap mahasiswa baru dibawah ini, dan format file nya <span class="fw-bold text-success">.xlsx</span> atau <span class="fw-bold text-success">.xls</span> ya.</p>      
         </div>
       </div>
       <div class="col-sm-5 text-center text-sm-left">
