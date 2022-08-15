@@ -24,14 +24,24 @@ class PostController extends Controller
        return view('layouts.dashboard',compact('data'));
     }
 
-    public function json()
-    {      
-      $data = MahasiswaBaru::orderBy('id','desc')->get();
+    public function json(Request $request)
+    {              
+      if($request->input('periodFrom') != null){
+        $from = $request->periodFrom;
+        $to = $request->periodTo;
+        $data = MahasiswaBaru::whereBetween('periode',[$from, $to])
+                              ->orderBy('id','desc')
+                              ->get();
+      }
+      else
+      {
+        $data = MahasiswaBaru::orderBy('id','desc')->get();
+      }
 
       return datatables()
-          ->of($data)
-          ->addIndexColumn()
-          ->make(true);
+            ->of($data)
+            ->addIndexColumn()
+            ->make(true);
     }
 
     // public function MahasiswaBaruExport()  

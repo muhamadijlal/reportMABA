@@ -30,7 +30,7 @@
   <div class="row">
     <div class="col-lg-4 col-md-4 col-6 mb-3">
       <select id="PeriodeSelectFrom" name="period_from" class="form-select filter">
-        <option>Periode From</option>
+        <option value="">Periode From</option>
         @foreach ($data as $value)        
           <option value="{{ $value->periode }}">{{ $value->periode }}</option>
         @endforeach
@@ -38,7 +38,7 @@
     </div>
     <div class="col-lg-4 col-md-4 col-6 mb-3">       
       <select id="PeriodeSelectTo" name="period_to" class="form-select filter">
-        <option>Periode To</option>
+        <option value="">Periode To</option>
         @foreach ($data as $value)        
           <option value="{{ $value->periode }}">{{ $value->periode }}</option>
         @endforeach
@@ -149,7 +149,9 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 
 <script>
-  $(document).ready( function () {
+  let periodFrom = $('#PeriodeSelectFrom').val();
+  let periodTo = $('#PeriodeSelectTo').val();
+  // $(document).ready( function () {    
     let table = $('#myTable').DataTable({
       processing: true,
       dom:"lBfrtip",
@@ -160,7 +162,12 @@
       serverSide: true,
       ajax: {
         url: '/json',
-        type: 'POST',        
+        type: 'POST',
+        data: function(d){
+          d.periodFrom = periodFrom;
+          d.periodTo = periodTo;
+          return d;
+        },
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
@@ -183,8 +190,13 @@
         { data: 'ukuran_baju', name: 'ukuran_baju' },
         { data: 'periode', name: 'periode' },
       ]
-    });    
+    });
+  $('.filter').on('change', function(){
+    periodFrom = $('#PeriodeSelectFrom').val();
+    periodTo = $('#PeriodeSelectTo').val();
+    table.ajax.reload(null,false);
   });
+  // });
 </script>
 <script src="{{ asset('assets/js/ui-modals.js') }}"></script>
 @endpush
