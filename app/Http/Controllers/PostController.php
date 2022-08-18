@@ -48,10 +48,12 @@ class PostController extends Controller
   public function MahasiswaBaruImport(Request $request)
   {
 
+    // dd($request->periode);
     $request->validate([
         // validation file must excel file, required and maks size 15 mb
-        'file' => 'required|mimes:xls,xlsx|max:15000'
-    ]);
+        'file' => 'required|mimes:xls,xlsx|max:15000',
+        'periode' => 'required|min:4|max:4'
+    ]);    
 
     $file = $request->file('file');
     $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
@@ -59,7 +61,7 @@ class PostController extends Controller
 
     $import = new MahasiswaBaruImport;
     $import->import(public_path('/file_upload/'.$filename));
-    
+
     if($import->failures()->isNotEmpty()) {
       return back()->withFailures($import->failures());
     }

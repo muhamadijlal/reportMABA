@@ -25,7 +25,6 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
     */
     public function model(array $row)
     {
-        // dd($row);
 
         return new MahasiswaBaru([
             'virtual_account'=> $row['va'],
@@ -44,7 +43,8 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
             'upload'         => $row['upload'],
             'ukuran_baju'    => $row['ukuran_baju'],
             'ukuran_baju'    => $row['ukuran_baju'],
-            'periode'        => Str::substr($row['va'], 0, 4),
+            // 'periode'        => Str::substr($row['va'], 0, 4),
+            'periode'        => request('periode')
         ]);
     }
 

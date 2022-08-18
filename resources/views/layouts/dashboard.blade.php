@@ -120,6 +120,10 @@
             <label for="formFile" class="form-label">Input file <span style="color: red; font-size: 10px; font-style: italic; text-transform: lowercase;">file must be .xslx .xls and max 15mb</span></label>
             <input type="file" name="file" class="form-control" id="formFile">
           </div>
+          <div class="mb-3">
+            <label for="formPeriode" class="form-label">Input periode </label>
+            <input type="text" name="periode" class="form-control" id="formPeriode">
+          </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Import</button>
