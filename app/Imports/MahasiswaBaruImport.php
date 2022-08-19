@@ -11,8 +11,6 @@ use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Illuminate\Support\Str;
-use Maatwebsite\Excel\Validators\Failure;
 
 class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, WithValidation, SkipsOnFailure
 {
@@ -61,3 +59,4 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
         return 2;
     }
 }
+    

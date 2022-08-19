@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
+// use App\Http\Controllers\PostController;
+use App\Http\Controllers\ImportController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RegisterController;
 
 /*
@@ -25,10 +27,12 @@ Route::middleware('guest')->group( function() {
 });
 
 Route::middleware('auth')->group( function(){
-  Route::get('/dashboard', [PostController::class, 'index']);
-  Route::post('/json', [PostController::class, 'json']);
-  // Route::get('/export', [PostController::class, 'MahasiswaBaruExport']);
-  Route::post('/import', [PostController::class, 'MahasiswaBaruImport']);
+  Route::get('/dashboard', [ReportController::class, 'index']);
+  Route::get('/add-report', [ReportController::class, 'create']);
+  Route::get('/import-mahasiswa', [ImportController::class, 'index']);
+  Route::post('/json', [ImportController::class, 'json']);
+  // Route::get('/export', [ImportController::class, 'MahasiswaBaruExport']);
+  Route::post('/import', [ImportController::class, 'MahasiswaBaruImport']);
   Route::post('/logout', [LoginController::class, 'logout']);
 }); 
 
