@@ -29,6 +29,7 @@ Route::middleware('guest')->group( function() {
 Route::middleware('auth')->group( function(){
   Route::get('/dashboard', [ReportController::class, 'index']);
   Route::get('/add-report', [ReportController::class, 'create']);
+  Route::post('/add-report/store', [ReportController::class, 'store']);
   Route::get('/import-mahasiswa', [ImportController::class, 'index']);
   Route::post('/json', [ImportController::class, 'json']);
   // Route::get('/export', [ImportController::class, 'MahasiswaBaruExport']);

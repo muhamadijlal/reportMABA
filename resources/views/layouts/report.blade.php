@@ -26,10 +26,18 @@
   </div>
 </div>
 
+{{-- @if(session('success')) --}}
+{{-- @endif --}}
+
 <div class="col-lg-12 mb-4 order-0">  
   <div class="card">
     <h5 class="card-header">Tabel Report Mahasiswa Baru</h5>
     <div class="table-responsive text-nowrap px-4 pb-4">
+      @if(session('success'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+          {{ session('success') }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      @endif
       <table class="table table-striped" id="myTable">
         <thead>
           <tr>
