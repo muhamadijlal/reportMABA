@@ -29,7 +29,7 @@ class ImportController extends Controller
     }
     else
     {
-      $data = MahasiswaBaru::orderBy('id','desc')->get();
+      $data = MahasiswaBaru::get();
     }
 
     return datatables()

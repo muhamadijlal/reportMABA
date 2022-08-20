@@ -34,10 +34,15 @@
         <div class="alert alert-success alert-dismissible" role="alert">
           {{ session('success') }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+      @elseif (session('error'))
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          {{ session('error') }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
       @endif
       <table class="table table-striped" id="myTable">
         <thead>
           <tr>            
+            <th rowspan="2">Aksi</th>
             <th rowspan="2">Tahun Akademik</th>
             <th rowspan="2">Daya Tampung</th>
             <th colspan="2">Jumlah Calon Mahasiswa</th>
@@ -65,7 +70,8 @@
 @push('script')
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/b-2.2.3/b-html5-2.2.3/datatables.min.js"></script>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
@@ -78,6 +84,7 @@
   let table = $('#myTable').DataTable({
     processing: true,
     dom:"lBfrtip",
+    order: [[1, 'asc']],
     buttons: [
       'copy','excel'
     ],
@@ -95,7 +102,7 @@
       }
     },
     columns: [      
-      { data: 'aksi',                   name: 'aksi' },
+      { data: 'aksi',                      name: 'aksi' },
       { data: 'periode',                   name: 'periode' },
       { data: 'daya_tampung',              name: 'daya_tampung' },
       { data: 'jumlah_maba_reguler',       name: 'jumlah_maba_reguler' },
@@ -105,6 +112,26 @@
       { data: 'lampiran',                  name: 'lampiran' },
     ]
   });
+</script>
+{{-- Sweetalert delete --}}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+function confirmDelete(data_id) {
+  swal({
+    title: "Delete Report ?",
+    text: "Data will permanently deleted!",
+    icon: "warning",
+    buttons: true,  
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      window.location.href = ("/report/destroy/"+data_id);
+    } else {
+      swal("Deleting Canceled");
+    }
+  });
+}
 </script>
 <script src="{{ asset('assets/js/ui-modals.js') }}"></script>
 @endpush

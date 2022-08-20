@@ -6,6 +6,7 @@ use App\Http\Controllers\ImportController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RegisterController;
+use Facade\FlareClient\Truncation\ReportTrimmer;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,7 @@ Route::middleware('auth')->group( function(){
   Route::post('/report/json', [ReportController::class, 'report_json']);
   Route::get('/report/edit/{id}', [ReportController::class, 'edit']);
   Route::post('/report/update/{id}', [ReportController::class, 'update']);
+  Route::get('/report/destroy/{id}', [ReportController::class, 'destroy']);
 
   Route::get('/import-mahasiswa', [ImportController::class, 'index']);
   Route::post('/import-mahasiswa', [ImportController::class, 'import_json']);

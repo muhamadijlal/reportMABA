@@ -21,7 +21,7 @@ class CreateReportMabaTable extends Migration
             $table->string('jumlah_maba_transfer');
             $table->string('jumlah_mahasiswa_reguler');
             $table->string('jumlah_mahasiswa_transfer');
-            $table->string('lampiran');
+            $table->string('lampiran');            
             $table->timestamps();
         });
     }
