@@ -10,6 +10,5 @@ class ReportMahasiswaBaru extends Model
     use HasFactory;
 
     protected $table = 'report_maba';
-
-    protected $guarded = 'id';
+    protected $guarded = ['id'];
 }

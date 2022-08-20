@@ -14,7 +14,7 @@
   <link rel="canonical" href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/">
   
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
+  <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />  
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">

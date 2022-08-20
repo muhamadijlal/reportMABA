@@ -17,10 +17,10 @@ class CreateReportMabaTable extends Migration
             $table->id();
             $table->string('periode');
             $table->string('daya_tampung');
-            $table->string('program_studi');
-            $table->string('siswa_reguler');
-            $table->string('siswa_transfer');
-            $table->string('total_mahasiswa');
+            $table->string('jumlah_maba_reguler');
+            $table->string('jumlah_maba_transfer');
+            $table->string('jumlah_mahasiswa_reguler');
+            $table->string('jumlah_mahasiswa_transfer');
             $table->string('lampiran');
             $table->timestamps();
         });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\File; 
 use App\Models\ReportMahasiswaBaru;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,34 @@ class ReportController extends Controller
     public function index()
     {
         return view('layouts.report');
+    }
+
+    public function report_json(){
+
+        $data = ReportMahasiswaBaru::orderBy('id','ASC')->get();
+
+        return datatables()
+          ->of($data)
+          ->addColumn('aksi', function($row){
+            return '<div>
+            <a href="/report/edit/'. $row->id .'" class="btn btn-icon btn-sm btn-warning"><span class="tf-icons bx bx-edit-alt"></span></a>
+            <a href="#" class="btn btn-icon btn-sm btn-danger"><span class="tf-icons bx bx-trash"></span></a>
+            </div>';            
+          })
+          ->addColumn('lampiran',function($row){
+            return '<a target="_blank" href="' . asset('file_lampiran') . '/' . $row->lampiran . '">Lihat bukti</a>';
+          })
+          ->rawColumns([
+              'aksi',
+              'periode',
+              'daya_tampung',
+              'jumlah_maba_reguler',
+              'jumlah_maba_transfer',
+              'jumlah_mahasiswa_reguler',
+              'jumlah_mahasiswa_transfer',
+              'lampiran',
+            ])
+          ->make(true);
     }
 
     /**
@@ -36,14 +65,14 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'periode'       => 'required|min:4|max:4',
-            'daya_tampung'  => 'required',
-            'program_studi' => 'required',
-            'reguler'       => 'required',
-            'transfer'      => 'required',
-            'total'         => 'required',
-            'file'          => 'required|mimes:pdf|file|max:15000'
-        ]);
+          'periode'                   => 'required|min:4|max:4',
+          'daya_tampung'              => 'required',
+          'jumlah_maba_reguler'       => 'required',
+          'jumlah_maba_transfer'      => 'required',
+          'jumlah_mahasiswa_reguler'  => 'required',
+          'jumlah_mahasiswa_transfer' => 'required',
+          'file'                      => 'required|mimes:pdf|file|max:15000'
+        ]);        
 
         $file = $request->file('file');
         $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
@@ -51,13 +80,13 @@ class ReportController extends Controller
 
         $collections = new ReportMahasiswaBaru;
 
-        $collections->periode         = $request->periode;
-        $collections->daya_tampung    = $request->daya_tampung;
-        $collections->program_studi   = $request->program_studi;
-        $collections->siswa_reguler   = $request->reguler;
-        $collections->siswa_transfer  = $request->transfer;
-        $collections->total_mahasiswa = $request->total;
-        $collections->lampiran        = $filename;
+        $collections->periode                     = $request->periode;
+        $collections->daya_tampung                = $request->daya_tampung;
+        $collections->jumlah_maba_reguler         = $request->jumlah_maba_reguler;
+        $collections->jumlah_maba_transfer        = $request->jumlah_maba_transfer;
+        $collections->jumlah_mahasiswa_reguler    = $request->jumlah_mahasiswa_reguler;
+        $collections->jumlah_mahasiswa_transfer   = $request->jumlah_mahasiswa_transfer;
+        $collections->lampiran                    = $filename;
 
         $collections->save();
 
@@ -83,7 +112,9 @@ class ReportController extends Controller
      */
     public function edit($id)
     {
-        //
+       $collection = ReportMahasiswaBaru::where('id',$id)->first();       
+
+       return view('layouts.edit-report', compact('collection'));
     }
 
     /**
@@ -95,7 +126,50 @@ class ReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $request->validate([
+        'periode'                   => 'required|min:4|max:4',
+        'daya_tampung'              => 'required',
+        'jumlah_maba_reguler'       => 'required',
+        'jumlah_maba_transfer'      => 'required',
+        'jumlah_mahasiswa_reguler'  => 'required',
+        'jumlah_mahasiswa_transfer' => 'required',
+        'file'                      => 'mimes:pdf|file|max:15000'
+      ]);
+
+      $collection = ReportMahasiswaBaru::find($id);
+
+      if($request->file)
+      {
+        $file = $request->file('file');
+        $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
+        $request->file->move('file_lampiran',$filename);
+        $file->getClientOriginalName();
+        $destinationPath = 'file_lampiran';
+        File::delete($destinationPath.'/'.$collection->lampiran);
+
+        $collection->periode                     = $request->periode;
+        $collection->daya_tampung                = $request->daya_tampung;
+        $collection->jumlah_maba_reguler         = $request->jumlah_maba_reguler;
+        $collection->jumlah_maba_transfer        = $request->jumlah_maba_transfer;
+        $collection->jumlah_mahasiswa_reguler    = $request->jumlah_mahasiswa_reguler;
+        $collection->jumlah_mahasiswa_transfer   = $request->jumlah_mahasiswa_transfer;
+        $collection->lampiran                    = $filename;
+
+        $collection->save();
+      }
+      else
+      {
+        $collection->periode                     = $request->periode;
+        $collection->daya_tampung                = $request->daya_tampung;
+        $collection->jumlah_maba_reguler         = $request->jumlah_maba_reguler;
+        $collection->jumlah_maba_transfer        = $request->jumlah_maba_transfer;
+        $collection->jumlah_mahasiswa_reguler    = $request->jumlah_mahasiswa_reguler;
+        $collection->jumlah_mahasiswa_transfer   = $request->jumlah_mahasiswa_transfer;
+
+        $collection->save();
+      }
+
+      return redirect('/dashboard')->with('success','Data success update!');
     }
 
     /**

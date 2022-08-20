@@ -26,12 +26,9 @@
   </div>
 </div>
 
-{{-- @if(session('success')) --}}
-{{-- @endif --}}
-
 <div class="col-lg-12 mb-4 order-0">  
   <div class="card">
-    <h5 class="card-header">Tabel Report Mahasiswa Baru</h5>
+    <h5 class="card-header">Tabel Seleksi Mahasiswa Baru</h5>
     <div class="table-responsive text-nowrap px-4 pb-4">
       @if(session('success'))
         <div class="alert alert-success alert-dismissible" role="alert">
@@ -40,13 +37,13 @@
       @endif
       <table class="table table-striped" id="myTable">
         <thead>
-          <tr>
+          <tr>            
             <th rowspan="2">Tahun Akademik</th>
             <th rowspan="2">Daya Tampung</th>
             <th colspan="2">Jumlah Calon Mahasiswa</th>
             <th colspan="2">Jumlah Mahasiswa Baru</th>
-            <th colspan="2">Jumlah Mahasiswa (Student Boy)</th>
-            <th rowspan="2">File</th>
+            <th colspan="2">Jumlah Mahasiswa (Student Body)</th>            
+            <th rowspan="2">lampiran</th>
           </tr>
           <tr>
             <th>Pendaftar</th>
@@ -88,33 +85,25 @@
       [25, 50, 100, 200, -1],
       [25, 50, 100, 200, "All"]
     ],
-    // autoWidth: false,        
-    // serverSide: true,
-    // ajax: {
-    //   url: '/json',
-    //   type: 'POST',
-    //   headers: {
-    //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //   }
-    // },
-    // columns: [
-    //   { data: 'DT_RowIndex' },
-    //   { data: 'virtual_account', name: 'virtual_account' },
-    //   { data: 'email', name: 'email' },
-    //   { data: 'no_hp', name: 'no_hp' },
-    //   { data: 'no_hp_ayah', name: 'no_hp_ayah' },
-    //   { data: 'no_hp_ibu', name: 'no_hp_ibu' },
-    //   { data: 'nama', name: 'nama' },
-    //   { data: 'sekolah', name: 'sekolah' },
-    //   { data: 'gelombang', name: 'gelombang' },
-    //   { data: 'tahun_lulus', name: 'tahun_lulus' },
-    //   { data: 'pilihan_prodi', name: 'pilihan_prodi' },
-    //   { data: 'register', name: 'register' },
-    //   { data: 'ujian', name: 'ujian' },
-    //   { data: 'upload', name: 'upload' },
-    //   { data: 'ukuran_baju', name: 'ukuran_baju' },
-    //   { data: 'periode', name: 'periode' },
-    // ]
+    autoWidth: false,        
+    serverSide: true,
+    ajax: {
+      url: '/report/json',
+      type: 'POST',
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    },
+    columns: [      
+      { data: 'aksi',                   name: 'aksi' },
+      { data: 'periode',                   name: 'periode' },
+      { data: 'daya_tampung',              name: 'daya_tampung' },
+      { data: 'jumlah_maba_reguler',       name: 'jumlah_maba_reguler' },
+      { data: 'jumlah_maba_transfer',      name: 'jumlah_maba_transfer' },
+      { data: 'jumlah_mahasiswa_reguler',  name: 'jumlah_mahasiswa_reguler' },
+      { data: 'jumlah_mahasiswa_transfer', name: 'jumlah_mahasiswa_transfer' },
+      { data: 'lampiran',                  name: 'lampiran' },
+    ]
   });
 </script>
 <script src="{{ asset('assets/js/ui-modals.js') }}"></script>

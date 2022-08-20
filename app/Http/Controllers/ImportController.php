@@ -13,13 +13,12 @@ class ImportController extends Controller
 {
     public function index()
   {
-
     $data = MahasiswaBaru::select('periode')->distinct()->get();
 
       return view('layouts.import',compact('data'));
   }
 
-  public function json(Request $request)
+  public function import_json(Request $request)
   {              
     if($request->input('periodFrom') != null){
       $from = $request->periodFrom;
@@ -61,6 +60,6 @@ class ImportController extends Controller
       return back()->withFailures($import->failures());
     }
 
-    return redirect('/dashboard')->withStatus('Excel file imported successfully');
+    return redirect('/import-mahasiswa')->withStatus('Excel file imported successfully');
   }
 }

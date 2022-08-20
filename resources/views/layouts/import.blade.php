@@ -165,7 +165,7 @@
       // autoWidth: false,        
       serverSide: true,
       ajax: {
-        url: '/json',
+        url: '/import-mahasiswa',
         type: 'POST',
         data: function(d){
           d.periodFrom = periodFrom;

@@ -30,9 +30,12 @@ Route::middleware('auth')->group( function(){
   Route::get('/dashboard', [ReportController::class, 'index']);
   Route::get('/add-report', [ReportController::class, 'create']);
   Route::post('/add-report/store', [ReportController::class, 'store']);
+  Route::post('/report/json', [ReportController::class, 'report_json']);
+  Route::get('/report/edit/{id}', [ReportController::class, 'edit']);
+  Route::post('/report/update/{id}', [ReportController::class, 'update']);
+
   Route::get('/import-mahasiswa', [ImportController::class, 'index']);
-  Route::post('/json', [ImportController::class, 'json']);
-  // Route::get('/export', [ImportController::class, 'MahasiswaBaruExport']);
+  Route::post('/import-mahasiswa', [ImportController::class, 'import_json']);
   Route::post('/import', [ImportController::class, 'MahasiswaBaruImport']);
   Route::post('/logout', [LoginController::class, 'logout']);
 }); 
