@@ -39,6 +39,7 @@ Route::middleware('auth')->group( function(){
   Route::get('/import-mahasiswa', [ImportController::class, 'index']);
   Route::post('/import-mahasiswa', [ImportController::class, 'import_json']);
   Route::post('/import', [ImportController::class, 'MahasiswaBaruImport']);
+  Route::post('/import/delete-periode', [ImportController::class, 'destroy']);
   Route::post('/logout', [LoginController::class, 'logout']);
 }); 
 

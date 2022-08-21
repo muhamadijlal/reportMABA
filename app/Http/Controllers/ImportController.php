@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-// use App\Exports\MahasiswaBaruExport;
-// use Maatwebsite\Excel\Facades\Excel;
-// use App\Models\Post;
 use App\Imports\MahasiswaBaruImport;
 use App\Models\MahasiswaBaru;
 use Illuminate\Http\Request;
@@ -13,14 +10,21 @@ class ImportController extends Controller
 {
     public function index()
   {
-    $data = MahasiswaBaru::select('periode')->distinct()->get();
+    $data = MahasiswaBaru::select('periode')->distinct()->get(); 
 
-      return view('layouts.import',compact('data'));
+      return view('layouts.import', compact('data'));
   }
 
   public function import_json(Request $request)
-  {              
-    if($request->input('periodFrom') != null){
+  {
+    if($request->input('deletePeriode') != null)
+    {
+      $periode = $request->deletePeriode;
+      $data =  MahasiswaBaru::where('periode', $periode)->delete();    
+    }
+    
+    if($request->input('periodFrom') != null)
+    {
       $from = $request->periodFrom;
       $to = $request->periodTo;
       $data = MahasiswaBaru::whereBetween('periode',[$from, $to])
@@ -38,15 +42,12 @@ class ImportController extends Controller
           ->make(true);
   }
 
-
   public function MahasiswaBaruImport(Request $request)
   {
-
-    // dd($request->periode);
     $request->validate([
-        // validation file must excel file, required and maks size 15 mb
-        'file' => 'required|mimes:xls,xlsx|max:15000',
-        'periode' => 'required|min:4|max:4'
+      // validation file must excel file, required and maks size 15 mb
+      'file' => 'required|mimes:xls,xlsx|max:15000',
+      'periode' => 'required|min:4|max:4'
     ]);    
 
     $file = $request->file('file');
@@ -61,5 +62,17 @@ class ImportController extends Controller
     }
 
     return redirect('/import-mahasiswa')->withStatus('Excel file imported successfully');
+  }
+
+  public function destroy(Request $request)
+  {
+    $collection = MahasiswaBaru::where('periode', $request->delete_periode)->get();
+
+    foreach($collection as $collect)
+    {
+      $collect->delete();
+    }
+
+    return redirect('/import-mahasiswa')->with('status','Data periode <p class="font-bold">'. $request->delete_periode.'</p> has been deleted permanently!');
   }
 }

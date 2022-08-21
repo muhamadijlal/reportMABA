@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\MahasiswaBaru;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
@@ -22,8 +23,7 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
     * @return \Illuminate\Database\Eloquent\Model|null
     */
     public function model(array $row)
-    {
-
+    {                
         return new MahasiswaBaru([
             'virtual_account'=> $row['va'],
             'email'          => $row['email'],
@@ -41,9 +41,9 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
             'upload'         => $row['upload'],
             'ukuran_baju'    => $row['ukuran_baju'],
             'ukuran_baju'    => $row['ukuran_baju'],
-            // 'periode'        => Str::substr($row['va'], 0, 4),
+            // 'periode'     => Str::substr($row['va'], 0, 4),
             'periode'        => request('periode')
-        ]);
+        ]);        
     }
 
     public function rules(): array

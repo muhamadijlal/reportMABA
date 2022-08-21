@@ -28,7 +28,7 @@
 
 <div class="container my-4">
   <div class="row">
-    <div class="col-lg-4 col-md-4 col-6 mb-3">
+    <div class="col-lg-2 col-md-4 col-6 mb-3">
       <select id="PeriodeSelectFrom" name="period_from" class="form-select filter">
         <option value="">Periode From</option>
         @foreach ($data as $value)        
@@ -36,7 +36,7 @@
         @endforeach
       </select>          
     </div>
-    <div class="col-lg-4 col-md-4 col-6 mb-3">       
+    <div class="col-lg-2 col-md-4 col-6 mb-3">       
       <select id="PeriodeSelectTo" name="period_to" class="form-select filter">
         <option value="">Periode To</option>
         @foreach ($data as $value)        
@@ -44,9 +44,20 @@
         @endforeach
       </select>          
     </div>
-    <div class="col-lg-4 col-md-4 col-6 mb-3">
-      <button class="btn btn-md btn-primary" id="show-table">Submit</button>
+    <div class="col-lg-2 col-md-4 col-6 mb-3">
+      <button class="btn btn-md btn-primary buttonFilter" id="show-table">Submit</button>
     </div>
+    <div class="col-lg-2 col-md-4 col-6 mb-3">
+      <select id="deletePeriode" name="delete_periode" class="form-select filterDelete">
+        <option value="">Delete Periode</option>
+        @foreach ($data as $value)
+          <option value="{{ $value->periode }}">{{ $value->periode }}</option>
+        @endforeach
+      </select>
+    </div>
+    <div class="col-lg-2 col-md-4 col-6 mb-3">
+      <button class="btn btn-md btn-danger" id="btnDeletePeriode" type="submit">Delete</button>
+    </div>    
   </div>
 </div>
 
@@ -151,57 +162,62 @@
 <script>
   let periodFrom = $('#PeriodeSelectFrom').val();
   let periodTo = $('#PeriodeSelectTo').val();
-  // $(document).ready( function () {    
-    let table = $('#myTable').DataTable({
-      processing: true,
-      dom:"lBfrtip",
-      order: [[0, 'desc']],
-      buttons: [
-        'copy','excel'
-      ],
-      aLengthMenu: [
-        [25, 50, 100, 200, -1],
-        [25, 50, 100, 200, "All"]
-      ],
-      // autoWidth: false,        
-      serverSide: true,
-      ajax: {
-        url: '/import-mahasiswa',
-        type: 'POST',
-        data: function(d){
-          d.periodFrom = periodFrom;
-          d.periodTo = periodTo;
-          return d;
-        },
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
+  let deletePeriode = $('#deletePeriode').val();
+
+  let table = $('#myTable').DataTable({
+    processing: true,
+    dom:"lBfrtip",
+    order: [[0, 'desc']],
+    buttons: [
+      'copy','excel'
+    ],
+    aLengthMenu: [
+      [25, 50, 100, 200, -1],
+      [25, 50, 100, 200, "All"]
+    ],
+    // autoWidth: false,        
+    serverSide: true,
+    ajax: {
+      url: '/import-mahasiswa',
+      type: 'POST',
+      data: function(d){
+        d.periodFrom = periodFrom;
+        d.periodTo = periodTo;          
+        d.deletePeriode = deletePeriode;          
+        return d;
       },
-      columns: [
-        { data: 'DT_RowIndex' },
-        { data: 'virtual_account', name: 'virtual_account' },
-        { data: 'email', name: 'email' },
-        { data: 'no_hp', name: 'no_hp' },
-        { data: 'no_hp_ayah', name: 'no_hp_ayah' },
-        { data: 'no_hp_ibu', name: 'no_hp_ibu' },
-        { data: 'nama', name: 'nama' },
-        { data: 'sekolah', name: 'sekolah' },
-        { data: 'gelombang', name: 'gelombang' },
-        { data: 'tahun_lulus', name: 'tahun_lulus' },
-        { data: 'pilihan_prodi', name: 'pilihan_prodi' },
-        { data: 'register', name: 'register' },
-        { data: 'ujian', name: 'ujian' },
-        { data: 'upload', name: 'upload' },
-        { data: 'ukuran_baju', name: 'ukuran_baju' },
-        { data: 'periode', name: 'periode' },
-      ]
-    });
-  $('.filter').on('change', function(){
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    },
+    columns: [
+      { data: 'DT_RowIndex' },
+      { data: 'virtual_account', name: 'virtual_account' },
+      { data: 'email', name: 'email' },
+      { data: 'no_hp', name: 'no_hp' },
+      { data: 'no_hp_ayah', name: 'no_hp_ayah' },
+      { data: 'no_hp_ibu', name: 'no_hp_ibu' },
+      { data: 'nama', name: 'nama' },
+      { data: 'sekolah', name: 'sekolah' },
+      { data: 'gelombang', name: 'gelombang' },
+      { data: 'tahun_lulus', name: 'tahun_lulus' },
+      { data: 'pilihan_prodi', name: 'pilihan_prodi' },
+      { data: 'register', name: 'register' },
+      { data: 'ujian', name: 'ujian' },
+      { data: 'upload', name: 'upload' },
+      { data: 'ukuran_baju', name: 'ukuran_baju' },
+      { data: 'periode', name: 'periode' },
+    ]
+  });
+  $('.buttonFilter').on('click', function(){
     periodFrom = $('#PeriodeSelectFrom').val();
     periodTo = $('#PeriodeSelectTo').val();
     table.ajax.reload(null,false);
   });
-  // });
+  $("#btnDeletePeriode").on('click', function(){
+    deletePeriode = $('#deletePeriode').val();
+    table.ajax.reload(null,false); 
+  });
 </script>
 <script src="{{ asset('assets/js/ui-modals.js') }}"></script>
 @endpush

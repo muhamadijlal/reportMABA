@@ -66,9 +66,7 @@ class ReportController extends Controller
     public function store(Request $request)
     {
 
-      $validationPeriod = DB::table('report_maba')
-                            ->select('periode')
-                            ->get();
+      $validationPeriod = ReportMahasiswaBaru::select('periode')->get();
 
       foreach($validationPeriod as $periode)
       {
