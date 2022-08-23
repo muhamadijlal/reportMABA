@@ -9,6 +9,9 @@
 @section('content')
 
 <div class="col-lg-12 mb-4 order-0">
+  <div class="nav justify-content-end">
+    {{ Breadcrumbs::render('dashboard') }}  
+  </div>
   <div class="card">
     <div class="d-flex align-items-end row">
       <div class="col-sm-7">
@@ -106,7 +109,7 @@
     autoWidth: false,        
     serverSide: true,
     ajax: {
-      url: '/report/json',
+      url: 'menu/report/json',
       type: 'POST',
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -205,7 +208,7 @@ function confirmDelete(data_id) {
   })
   .then((willDelete) => {
     if (willDelete) {
-      window.location.href = ("/report/destroy/"+data_id);
+      window.location.href = ("/menu/report/destroy/"+data_id);
     } else {
       swal("Deleting Canceled");
     }

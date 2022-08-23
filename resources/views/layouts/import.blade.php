@@ -9,6 +9,9 @@
 @section('content')
 
 <div class="col-lg-12 mb-4 order-0">
+  <div class="nav justify-content-end">
+    {{ Breadcrumbs::render('import') }}
+  </div>
   <div class="card">
     <div class="d-flex align-items-end row">
       <div class="col-sm-7">
@@ -130,7 +133,7 @@
         <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form method="POST" action="/import" enctype="multipart/form-data">
+      <form method="POST" action="/menu/import" enctype="multipart/form-data">
       @csrf
         <div class="modal-body">
           <div class="mb-3">
@@ -189,7 +192,7 @@
     // autoWidth: false,        
     serverSide: true,
     ajax: {
-      url: '/import-mahasiswa',
+      url: '/menu/import-mahasiswa',
       type: 'POST',
       data: function(d){
         d.periodFrom = periodFrom;

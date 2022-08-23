@@ -72,7 +72,7 @@ class ImportController extends Controller
       if($import->failures()->isNotEmpty()) {
         return back()->withFailures($import->failures());
       }
-      return redirect('/import-mahasiswa')->withStatus('Excel file imported successfully');
+      return redirect('/menu/import-mahasiswa')->withStatus('Excel file imported successfully');
     }
     else
     {
@@ -89,6 +89,6 @@ class ImportController extends Controller
       $collect->delete();
     }
 
-    return redirect('/import-mahasiswa')->with('status','Data periode <p class="font-bold">'. $request->delete_periode.'</p> has been deleted permanently!');
+    return redirect('/menu/import-mahasiswa')->with('status','Data periode <p class="font-bold">'. $request->delete_periode.'</p> has been deleted permanently!');
   }
 }

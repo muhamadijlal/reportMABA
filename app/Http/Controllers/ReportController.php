@@ -27,7 +27,7 @@ class ReportController extends Controller
         ->of($collections)
         ->addColumn('aksi', function($row){
           return '<div>
-          <a href="/report/edit/'. $row->id .'" class="btn btn-icon btn-sm btn-warning"><span class="tf-icons bx bx-edit-alt"></span></a>
+          <a href="/menu/report/edit/'. $row->id .'" class="btn btn-icon btn-sm btn-warning"><span class="tf-icons bx bx-edit-alt"></span></a>
           <button class="btn btn-icon btn-sm btn-danger" onclick="confirmDelete('.$row->id.')" ><span class="tf-icons bx bx-trash"></span></button>
           </div>';            
         })

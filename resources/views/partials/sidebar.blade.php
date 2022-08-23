@@ -17,7 +17,7 @@
 
   <ul class="menu-inner py-1">
     <!-- Dashboard -->
-    <li class="menu-item">
+    <li class="menu-item @if(Request::segment(1) == "dashboard") active @endif">
       <a href="/dashboard" class="menu-link">
         <i class="menu-icon tf-icons bx bx-home-circle"></i>
         <div data-i18n="Analytics">Dashboard</div>
@@ -25,19 +25,19 @@
       <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Pages</span>
       </li>
-      <li class="menu-item">
+      <li class="menu-item @if(Request::segment(1) == "menu") active open @endif">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-dock-top"></i>
           <div data-i18n="Account Settings">Menus</div>
         </a>
         <ul class="menu-sub">
-          <li class="menu-item">
-            <a href="/add-report" class="menu-link">
+          <li class="menu-item @if(Request::segment(2) == "add-report") active @endif">
+            <a href="/menu/add-report" class="menu-link">
               <div data-i18n="Notifications">Tambah Report</div>
             </a>
           </li>         
-          <li class="menu-item">
-            <a href="/import-mahasiswa" class="menu-link">
+          <li class="menu-item @if(Request::segment(2) == "import-mahasiswa") active @endif">
+            <a href="/menu/import-mahasiswa" class="menu-link">
               <div data-i18n="Notifications">Import Data</div>
             </a>
           </li>         
