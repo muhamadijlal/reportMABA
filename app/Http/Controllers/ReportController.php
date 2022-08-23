@@ -34,6 +34,12 @@ class ReportController extends Controller
         ->addColumn('lampiran',function($row){
           return '<a target="_blank" href="' . asset('file_lampiran') . '/' . $row->lampiran . '">Lihat bukti</a>';
         })
+        ->addColumn('pendaftar', function($row){
+          return $row->Ms_maba->count();
+        })
+        ->addColumn('lulus_seleksi', function($row){
+          return $row->Ms_maba->where('lulus_seleksi','lulus')->count();
+        })
         ->rawColumns([
             'aksi',
             'periode',

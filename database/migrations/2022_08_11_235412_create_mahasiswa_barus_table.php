@@ -16,6 +16,7 @@ class CreateMahasiswaBarusTable extends Migration
     {
         Schema::create('ms_maba', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_report_maba');
             $table->string('virtual_account')->unique();
             $table->string('email')->unique();
             $table->string('no_hp');
@@ -32,6 +33,7 @@ class CreateMahasiswaBarusTable extends Migration
             $table->string('upload');
             $table->string('ukuran_baju')->nullable();            
             $table->string('periode');
+            $table->string('lulus_seleksi');
             $table->timestamps();
         });
     }

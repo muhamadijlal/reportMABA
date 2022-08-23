@@ -14,14 +14,14 @@
           @csrf          
           <div class="mb-3">
             <label class="form-label" for="basic-default-fullname">Periode</label>
-            <input type="text" class="form-control @error('periode') is-invalid @enderror" id="basic-default-fullname" placeholder="Input Periode" name="periode">
+            <input type="text" class="form-control @error('periode') is-invalid @enderror" id="basic-default-fullname" placeholder="Input Periode" name="periode" value="{{ old('periode') }}">
             @error('periode')
               <div class="invalid-feedback">{{ $message }}</div>
             @enderror
           </div>
           <div class="mb-3">
             <label class="form-label" for="basic-default-fullname">Daya Tampung</label>
-            <input type="text" class="form-control @error('daya_tampung') is-invalid @enderror" id="basic-default-fullname" placeholder="Input Periode" name="daya_tampung">
+            <input type="text" class="form-control @error('daya_tampung') is-invalid @enderror" id="basic-default-fullname" placeholder="Input Periode" name="daya_tampung" value="{{ old('daya_tampung') }}">
             @error('daya_tampung')
               <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -31,7 +31,7 @@
             <div class="col-lg-6 col-mb-4">
               <div class="mb-3">
                 <label class="form-label" for="basic-default-company">Reguler</label>
-                <input type="text" class="form-control @error('jumlah_maba_reguler') is-invalid @enderror" id="basic-default-company" placeholder="Input Pogram Studi" name="jumlah_maba_reguler">
+                <input type="text" class="form-control @error('jumlah_maba_reguler') is-invalid @enderror" id="basic-default-company" placeholder="Input Pogram Studi" name="jumlah_maba_reguler" value="{{ old('jumlah_maba_reguler') }}">
                 @error('jumlah_maba_reguler')
                   <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -40,7 +40,7 @@
             <div class="col-lg-6 col-mb-4">
               <div class="mb-3">
                 <label class="form-label" for="basic-default-company">Transfer</label>
-                <input type="text" class="form-control @error('jumlah_maba_transfer') is-invalid @enderror" id="basic-default-company" placeholder="Input Pogram Studi" name="jumlah_maba_transfer">
+                <input type="text" class="form-control @error('jumlah_maba_transfer') is-invalid @enderror" id="basic-default-company" placeholder="Input Pogram Studi" name="jumlah_maba_transfer" value="{{ old('jumlah_maba_transfer') }}">
                 @error('jumlah_maba_transfer')
                   <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -52,7 +52,7 @@
             <div class="col-lg-6 col-md-4">
               <div class="mb-3">
                 <label class="form-label" for="basic-default-company">Reguler</label>
-                <input type="text" class="form-control @error('jumlah_mahasiswa_reguler') is-invalid @enderror" id="basic-default-company" placeholder="Input Jumlah" name="jumlah_mahasiswa_reguler">
+                <input type="text" class="form-control @error('jumlah_mahasiswa_reguler') is-invalid @enderror" id="basic-default-company" placeholder="Input Jumlah" name="jumlah_mahasiswa_reguler" value="{{ old('jumlah_mahasiswa_reguler') }}">
                 @error('jumlah_mahasiswa_reguler')
                   <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -61,7 +61,7 @@
             <div class="col-lg-6 col-md-4">
               <div class="mb-3">
                 <label class="form-label" for="basic-default-company">Transfer</label>
-                <input type="text" class="form-control @error('jumlah_mahasiswa_transfer') is-invalid @enderror" id="basic-default-company" placeholder="Input Jumlah" name="jumlah_mahasiswa_transfer">
+                <input type="text" class="form-control @error('jumlah_mahasiswa_transfer') is-invalid @enderror" id="basic-default-company" placeholder="Input Jumlah" name="jumlah_mahasiswa_transfer" value="{{ old('jumlah_mahasiswa_transfer') }}">
                 @error('jumlah_mahasiswa_transfer')
                   <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

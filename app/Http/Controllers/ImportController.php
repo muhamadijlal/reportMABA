@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Imports\MahasiswaBaruImport;
 use App\Models\MahasiswaBaru;
+use App\Models\ReportMahasiswaBaru;
 use Illuminate\Http\Request;
 
 class ImportController extends Controller
 {
     public function index()
   {
-    $data = MahasiswaBaru::select('periode')->distinct()->get(); 
+    $data = MahasiswaBaru::select('periode')->distinct()->get();
+    $periode = ReportMahasiswaBaru::select('*')->distinct()->get();
 
-      return view('layouts.import', compact('data'));
+    return view('layouts.import', compact('data','periode'));
   }
 
   public function import_json(Request $request)
@@ -47,7 +49,7 @@ class ImportController extends Controller
     $request->validate([
       // validation file must excel file, required and maks size 15 mb
       'file' => 'required|mimes:xls,xlsx|max:15000',
-      'periode' => 'required|min:4|max:4'
+      // 'periode' => 'required'
     ]);    
 
     $file = $request->file('file');

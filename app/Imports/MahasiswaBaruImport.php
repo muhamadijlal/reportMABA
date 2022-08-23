@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\MahasiswaBaru;
+use App\Models\ReportMahasiswaBaru;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -24,7 +25,10 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
     */
     public function model(array $row)
     {                
+        $data = ReportMahasiswaBaru::where('id', request('periode'))->first();
+
         return new MahasiswaBaru([
+            'id_report_maba' => $data->id,
             'virtual_account'=> $row['va'],
             'email'          => $row['email'],
             'no_hp'          => $row['nohp'],
@@ -40,9 +44,9 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
             'bayar'          => $row['bayar_1'],
             'upload'         => $row['upload'],
             'ukuran_baju'    => $row['ukuran_baju'],
-            'ukuran_baju'    => $row['ukuran_baju'],
             // 'periode'     => Str::substr($row['va'], 0, 4),
-            'periode'        => request('periode')
+            'periode'        => $data->periode,
+            'lulus_seleksi'  => $row['lulus_seleksi'],
         ]);        
     }
 

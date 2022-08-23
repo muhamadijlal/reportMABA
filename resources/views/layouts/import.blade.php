@@ -108,6 +108,7 @@
             <th>Upload</th>
             <th>Ukuran Baju</th>
             <th>Periode</th>
+            <th>Lulus Seleksi</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0"></tbody>
@@ -133,8 +134,13 @@
             <input type="file" name="file" class="form-control" id="formFile">
           </div>
           <div class="mb-3">
-            <label for="formPeriode" class="form-label">Input periode </label>
-            <input type="text" name="periode" class="form-control" id="formPeriode">
+            <label for="periode" class="form-label">Select Periode</label>
+            <select id="periode" name="periode" class="form-select filter">
+              <option value="">Pilih Periode</option>
+              @foreach ($periode as $item)        
+                <option value="{{ $item->id }}">{{ $item->periode }}</option>
+              @endforeach
+            </select>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
@@ -207,6 +213,7 @@
       { data: 'upload', name: 'upload' },
       { data: 'ukuran_baju', name: 'ukuran_baju' },
       { data: 'periode', name: 'periode' },
+      { data: 'lulus_seleksi', name: 'lulus_seleksi' },
     ]
   });
   $('.buttonFilter').on('click', function(){

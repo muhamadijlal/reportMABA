@@ -60,6 +60,17 @@
           </tr>
         </thead>
         <tbody class="table-border-bottom-0"></tbody>
+        <tfoot>
+          <tr>
+            <th></th>
+            <th colspan="2">SUM</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th colspan="2"></th>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>
@@ -101,10 +112,78 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     },
+    "footerCallback": function ( row, data, start, end, display ) {
+      var api = this.api(), data;
+    
+      // converting to interger to find total
+      var intVal = function (i) {
+        return typeof i === 'string' ?
+          i.replace(/[\$,]/g, '')*1 :
+          typeof i === 'number' ?
+            i : 0;
+      };
+
+      // computing column Total of the complete result 
+      var pendaftarTotal = api
+        .column(3)
+        .data()
+        .reduce( function (a, b) {
+          return intVal(a) + intVal(b);
+      },0);
+
+      var lulusSeleksiTotal = api
+        .column(4)
+        .data()
+        .reduce( function (a, b) {
+          return intVal(a) + intVal(b);
+      },0);
+
+      var regMabaTotal = api
+        .column(5)
+        .data()
+        .reduce( function (a, b) {
+          return intVal(a) + intVal(b);
+      },0);
+
+      var transferMabaTotal = api
+        .column(6)
+        .data()
+        .reduce( function (a, b) {
+          return intVal(a) + intVal(b);
+      },0);
+
+      var reguler = api
+        .column(7)
+        .data()
+        .reduce( function (a, b) {
+          return intVal(a) + intVal(b);
+      },0);
+
+      var transfer = api
+        .column(8)
+        .data()
+        .reduce( function (a, b) {
+          return intVal(a) + intVal(b);
+      },0);
+
+      // Sum colum reguler and trassnfer from jumlah mahasiswa student body
+      var totalMahasiswa =  transfer+reguler;
+      
+      // Update footer by showing the total with the reference of the column index 
+	    // $( api.column(0).footer() ).html('Total');
+        $( api.column(3).footer() ).html(pendaftarTotal);
+        $( api.column(4).footer() ).html(lulusSeleksiTotal);
+        $( api.column(5).footer() ).html(regMabaTotal);
+        $( api.column(6).footer() ).html(transferMabaTotal);
+        $( api.column(7).footer() ).html(totalMahasiswa);
+      },
+
     columns: [      
       { data: 'aksi',                      name: 'aksi' },
       { data: 'periode',                   name: 'periode' },
       { data: 'daya_tampung',              name: 'daya_tampung' },
+      { data: 'pendaftar',                 name: 'pendaftar' },
+      { data: 'lulus_seleksi',             name: 'lulus_seleksi' },
       { data: 'jumlah_maba_reguler',       name: 'jumlah_maba_reguler' },
       { data: 'jumlah_maba_transfer',      name: 'jumlah_maba_transfer' },
       { data: 'jumlah_mahasiswa_reguler',  name: 'jumlah_mahasiswa_reguler' },

@@ -48,3 +48,7 @@
 
 </aside>
 <!-- / Menu -->
+
+@push('script')
+  <script src="{{ asset('assets/js/my.js') }}"></script>
+@endpush
