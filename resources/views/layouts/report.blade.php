@@ -62,8 +62,8 @@
         <tbody class="table-border-bottom-0"></tbody>
         <tfoot>
           <tr>
+            <th colspan="2"></th>
             <th></th>
-            <th colspan="2">SUM</th>
             <th></th>
             <th></th>
             <th></th>
@@ -170,12 +170,12 @@
       var totalMahasiswa =  transfer+reguler;
       
       // Update footer by showing the total with the reference of the column index 
-	    // $( api.column(0).footer() ).html('Total');
-        $( api.column(3).footer() ).html(pendaftarTotal);
-        $( api.column(4).footer() ).html(lulusSeleksiTotal);
-        $( api.column(5).footer() ).html(regMabaTotal);
-        $( api.column(6).footer() ).html(transferMabaTotal);
-        $( api.column(7).footer() ).html(totalMahasiswa);
+	      $(api.column(1).footer()).html('<p class="fw-bold">Jumlah</p>');
+        $(api.column(3).footer()).html(pendaftarTotal);
+        $(api.column(4).footer()).html(lulusSeleksiTotal);
+        $(api.column(5).footer()).html(regMabaTotal);
+        $(api.column(6).footer()).html(transferMabaTotal);
+        $(api.column(7).footer()).html(totalMahasiswa);
       },
 
     columns: [      
@@ -188,7 +188,7 @@
       { data: 'jumlah_maba_transfer',      name: 'jumlah_maba_transfer' },
       { data: 'jumlah_mahasiswa_reguler',  name: 'jumlah_mahasiswa_reguler' },
       { data: 'jumlah_mahasiswa_transfer', name: 'jumlah_mahasiswa_transfer' },
-      { data: 'lampiran',                  name: 'lampiran' },
+      { data: 'lampiran',                  name: 'lampiran' },      
     ]
   });
 </script>

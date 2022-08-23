@@ -25,7 +25,7 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
     */
     public function model(array $row)
     {                
-        $data = ReportMahasiswaBaru::where('id', request('periode'))->first();
+        $data = ReportMahasiswaBaru::where('periode', request('periode'))->first();
 
         return new MahasiswaBaru([
             'id_report_maba' => $data->id,

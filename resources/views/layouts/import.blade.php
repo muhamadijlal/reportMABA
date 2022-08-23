@@ -70,6 +70,11 @@
           {{ session('status') }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       @endif
+      @if (session('error'))
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          {{ session('error') }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      @endif
       @if (isset($errors) && $errors->any())
         <div class="alert alert-danger alert-dismissible" role="alert">
           @foreach ($errors->all() as $error)
@@ -82,8 +87,7 @@
           There are <span class="text-bold">{{ session()->get('failures')->count() }}</span> duplicate data. Excel succed Import<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       @endif
-      <div class="my-4">
-        {{-- <a href="/export" class="btn btn-md btn-success">Export Excel</a> --}}
+      <div class="my-4">      
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCenter">
           Import Excel
         </button>
@@ -134,13 +138,14 @@
             <input type="file" name="file" class="form-control" id="formFile">
           </div>
           <div class="mb-3">
-            <label for="periode" class="form-label">Select Periode</label>
-            <select id="periode" name="periode" class="form-select filter">
+            <label for="periode" class="form-label">Input Periode</label>
+            <input type="text" name="periode" class="form-control" id="periode">
+            {{-- <select id="periode" name="periode" class="form-select filter">
               <option value="">Pilih Periode</option>
               @foreach ($periode as $item)        
-                <option value="{{ $item->id }}">{{ $item->periode }}</option>
+                <option value="{{ $item->periode }}">{{ $item->periode }}</option>
               @endforeach
-            </select>
+            </select> --}}
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>

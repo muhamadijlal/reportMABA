@@ -11,7 +11,7 @@ class ImportController extends Controller
 {
     public function index()
   {
-    $data = MahasiswaBaru::select('periode')->distinct()->get();
+    $data = MahasiswaBaru::select('periode')->distinct()->orderBy('periode','asc')->get();
     $periode = ReportMahasiswaBaru::select('*')->distinct()->get();
 
     return view('layouts.import', compact('data','periode'));
@@ -49,21 +49,35 @@ class ImportController extends Controller
     $request->validate([
       // validation file must excel file, required and maks size 15 mb
       'file' => 'required|mimes:xls,xlsx|max:15000',
-      // 'periode' => 'required'
+      'periode' => 'required'
     ]);    
 
-    $file = $request->file('file');
-    $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
-    $request->file->move('file_upload',$filename);
-
-    $import = new MahasiswaBaruImport;
-    $import->import(public_path('/file_upload/'.$filename));
-
-    if($import->failures()->isNotEmpty()) {
-      return back()->withFailures($import->failures());
+    $data = MahasiswaBaru::where('periode', $request->periode)->first();
+    $isset = ReportMahasiswaBaru::where('periode', $request->periode)->first(); 
+    // validation periode if the periode is exists on database
+    if($data)
+    {
+      return redirect()->back()->with('error','Period already exists!');
     }
+    // Validation periode report maba is exist or not
+    elseif($isset)
+    {
+      $file = $request->file('file');
+      $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
+      $request->file->move('file_upload',$filename);
 
-    return redirect('/import-mahasiswa')->withStatus('Excel file imported successfully');
+      $import = new MahasiswaBaruImport;
+      $import->import(public_path('/file_upload/'.$filename));
+
+      if($import->failures()->isNotEmpty()) {
+        return back()->withFailures($import->failures());
+      }
+      return redirect('/import-mahasiswa')->withStatus('Excel file imported successfully');
+    }
+    else
+    {
+      return redirect()->back()->with("error","Periode doesn't exist! you must input data on menu Tambah Report first!");
+    }
   }
 
   public function destroy(Request $request)
