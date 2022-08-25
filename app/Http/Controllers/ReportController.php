@@ -30,8 +30,8 @@ class ReportController extends Controller
           <button class="btn btn-icon btn-sm btn-danger" onclick="confirmDelete('.$row->id.')" ><span class="tf-icons bx bx-trash"></span></button>
           </div>';            
         })
-        ->addColumn('lampiran',function($row){
-          return '<a target="_blank" href="' . asset('file_lampiran') . '/' . $row->lampiran . '">Lihat bukti</a>';
+        ->addColumn('laporan_pmb',function($row){
+          return '<a target="_blank" href="' . asset('laporan_pmb') . '/' . $row->laporan_pmb . '">Lihat bukti</a>';
         })
         ->addColumn('pendaftar', function($row){
           return $row->Ms_maba->count();

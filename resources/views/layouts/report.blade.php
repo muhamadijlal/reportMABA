@@ -51,7 +51,7 @@
             <th colspan="2">Jumlah Calon Mahasiswa</th>
             <th colspan="2">Jumlah Mahasiswa Baru</th>
             <th colspan="2">Jumlah Mahasiswa (Student Body)</th>            
-            <th rowspan="2">lampiran</th>
+            <th rowspan="2">Laporan PMB</th>
           </tr>
           <tr>
             <th>Pendaftar</th>
@@ -191,7 +191,7 @@
       { data: 'jumlah_maba_transfer',      name: 'jumlah_maba_transfer' },
       { data: 'jumlah_mahasiswa_reguler',  name: 'jumlah_mahasiswa_reguler' },
       { data: 'jumlah_mahasiswa_transfer', name: 'jumlah_mahasiswa_transfer' },
-      { data: 'lampiran',                  name: 'lampiran' },      
+      { data: 'laporan_pmb',               name: 'laporan_pmb' },      
     ]
   });
 </script>

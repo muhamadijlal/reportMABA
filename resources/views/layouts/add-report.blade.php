@@ -72,7 +72,7 @@
         </div>         
         <div class="mb-3">
           <label class="form-label" for="basic-default-company">Laporan PMB</label>
-          <input type="file" class="form-control @error('file') is-invalid @enderror" id="basic-default-company" placeholder="Input bukti berupa file .pdf" name="file">
+          <input type="file" class="form-control @error('file') is-invalid @enderror" id="basic-default-company" placeholder="Input bukti berupa file .pdf" name="laporan_pmb">
           @error('file')
             <div class="invalid-feedback">{{ $message }}</div>
           @enderror
