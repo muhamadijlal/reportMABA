@@ -142,13 +142,13 @@
           </div>
           <div class="mb-3">
             <label for="periode" class="form-label">Input Periode</label>
-            <input type="text" name="periode" class="form-control" id="periode">
-            {{-- <select id="periode" name="periode" class="form-select filter">
+            {{-- <input type="text" name="periode" class="form-control" id="periode"> --}}
+            <select id="periode" name="periode" class="form-select filter">
               <option value="">Pilih Periode</option>
               @foreach ($periode as $item)        
                 <option value="{{ $item->periode }}">{{ $item->periode }}</option>
               @endforeach
-            </select> --}}
+            </select>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>

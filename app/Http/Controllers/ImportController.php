@@ -12,7 +12,7 @@ class ImportController extends Controller
     public function index()
   {
     $data = MahasiswaBaru::select('periode')->distinct()->orderBy('periode','asc')->get();
-    $periode = ReportMahasiswaBaru::select('*')->distinct()->get();
+    $periode = ReportMahasiswaBaru::select('*')->distinct()->orderBy('periode','asc')->get();
 
     return view('layouts.import', compact('data','periode'));
   }
@@ -60,7 +60,7 @@ class ImportController extends Controller
       return redirect()->back()->with('error','Period already exists!');
     }
     // Validation periode report maba is exist or not
-    elseif($isset)
+    else
     {
       $file = $request->file('file');
       $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
@@ -74,10 +74,10 @@ class ImportController extends Controller
       }
       return redirect('/menu/import-mahasiswa')->withStatus('Excel file imported successfully');
     }
-    else
-    {
-      return redirect()->back()->with("error","Periode doesn't exist! you must input data on menu Tambah Report first!");
-    }
+    // else
+    // {
+    //   return redirect()->back()->with("error","Periode doesn't exist! you must input data on menu Tambah Report first!");
+    // }
   }
 
   public function destroy(Request $request)
