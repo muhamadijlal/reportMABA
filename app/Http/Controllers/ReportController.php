@@ -36,8 +36,8 @@ class ReportController extends Controller
         ->addColumn('pendaftar', function($row){
           return $row->Ms_maba->count();
         })
-        ->addColumn('lulus_seleksi', function($row){
-          return $row->Ms_maba->where('lulus_seleksi','lulus')->count();
+        ->addColumn('status_kelulusan', function($row){
+          return $row->Ms_maba->where('status_kelulusan','lulus')->count();
         })
         ->rawColumns([
             'aksi',

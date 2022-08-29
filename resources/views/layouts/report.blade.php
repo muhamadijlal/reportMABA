@@ -186,7 +186,7 @@
       { data: 'periode',                   name: 'periode' },
       { data: 'daya_tampung',              name: 'daya_tampung' },
       { data: 'pendaftar',                 name: 'pendaftar' },
-      { data: 'lulus_seleksi',             name: 'lulus_seleksi' },
+      { data: 'status_kelulusan',          name: 'status_kelulusan' },
       { data: 'jumlah_maba_reguler',       name: 'jumlah_maba_reguler' },
       { data: 'jumlah_maba_transfer',      name: 'jumlah_maba_transfer' },
       { data: 'jumlah_mahasiswa_reguler',  name: 'jumlah_mahasiswa_reguler' },
