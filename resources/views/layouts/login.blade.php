@@ -68,7 +68,7 @@
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-4 text-center">Welcome to Rekap Maba Web! 👋</h4>            
+              <h4 class="mb-4 text-center">Welcome to Web Rekap PMB! 👋</h4>            
               @if(session('error_login'))
                 <div class="my-2">
                   <div class="alert alert-danger" role="alert">{{ session('error_login') }}</div>

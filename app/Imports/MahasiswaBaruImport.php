@@ -28,25 +28,15 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
         $data = ReportMahasiswaBaru::where('periode', request('periode'))->first();
 
         return new MahasiswaBaru([
-            'id_report_maba' => $data->id,
-            'virtual_account'=> $row['va'],
-            'email'          => $row['email'],
-            'no_hp'          => $row['nohp'],
-            'no_hp_ayah'     => $row['nohp_ayah'],
-            'no_hp_ibu'      => $row['nohp_ibu'],
-            'nama'           => $row['nama'],
-            'sekolah'        => $row['sekolah'],
-            'gelombang'      => $row['gelombang'],
-            'tahun_lulus'    => $row['tahun_lulus'],
-            'pilihan_prodi'  => $row['pilihan_prodi_1'],
-            'register'       => $row['register'],
-            'ujian'          => $row['ujian'],
-            'bayar'          => $row['bayar_1'],
-            'upload'         => $row['upload'],
-            'ukuran_baju'    => $row['ukuran_baju'],
-            // 'periode'     => Str::substr($row['va'], 0, 4),
-            'periode'        => $data->periode,
-            'lulus_seleksi'  => $row['lulus_seleksi'],
+            'id_report_maba'  => $data->id,            
+            'nama_lengkap'    => $row['nama_lengkap'],
+            'prodi1'          => $row['prodi1'],            
+            'prodi2'          => $row['prodi2'],            
+            'prodi3'          => $row['prodi3'],            
+            'prodi4'          => $row['prodi4'],            
+            'prodi5'          => $row['prodi5'],            
+            'periode'         => $data->periode,
+            'status_kelulusan'=> $row['status_kelulusan'],
         ]);        
     }
 
@@ -54,7 +44,7 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
     {
         return [
             '*.virtual_account' => ['unique:ms_maba,virtual_account'],
-            '*.email' => ['unique:ms_maba,email']
+            // '*.email' => ['unique:ms_maba,email']
         ];
     }
 
