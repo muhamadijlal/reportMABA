@@ -48,7 +48,7 @@ class ImportController extends Controller
   {
     $request->validate([
       // validation file must excel file, required and maks size 15 mb
-      'file' => 'required|mimes:xls,xlsx|max:15000',
+      'file' => 'required|mimes:xls,xlsx,csv,txt|max:15000',
       'periode' => 'required'
     ]);    
 

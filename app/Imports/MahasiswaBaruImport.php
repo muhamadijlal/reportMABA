@@ -24,17 +24,17 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
     * @return \Illuminate\Database\Eloquent\Model|null
     */
     public function model(array $row)
-    {                
+    {
         $data = ReportMahasiswaBaru::where('periode', request('periode'))->first();
 
         return new MahasiswaBaru([
             'id_report_maba'  => $data->id,            
             'nama_lengkap'    => $row['nama_lengkap'],
-            'prodi1'          => $row['prodi1'],            
-            'prodi2'          => $row['prodi2'],            
-            'prodi3'          => $row['prodi3'],            
-            'prodi4'          => $row['prodi4'],            
-            'prodi5'          => $row['prodi5'],            
+            'prodi1'          => $row['prodi1'],
+            'prodi2'          => $row['prodi2'],
+            'prodi3'          => $row['prodi3'],
+            'prodi4'          => $row['prodi4'],
+            'prodi5'          => $row['prodi5'],
             'periode'         => $data->periode,
             'status_kelulusan'=> $row['status_kelulusan'],
         ]);        

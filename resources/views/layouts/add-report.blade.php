@@ -12,7 +12,7 @@
       {{-- <small class="text-muted float-end">Default label</small> --}}
     </div>
     <div class="card-body">
-      <form action="/add-report/store" method="POST" enctype="multipart/form-data">
+      <form action="/menu/add-report/store" method="POST" enctype="multipart/form-data">
         @csrf          
         <div class="mb-3">
           <label class="form-label" for="basic-default-fullname">Periode</label>

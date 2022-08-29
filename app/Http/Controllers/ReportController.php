@@ -47,7 +47,7 @@ class ReportController extends Controller
             'jumlah_maba_transfer',
             'jumlah_mahasiswa_reguler',
             'jumlah_mahasiswa_transfer',
-            'lampiran',
+            'laporan_pmb',
           ])
         ->make(true);
     }
@@ -88,12 +88,12 @@ class ReportController extends Controller
         'jumlah_maba_transfer'      => 'required',
         'jumlah_mahasiswa_reguler'  => 'required',
         'jumlah_mahasiswa_transfer' => 'required',
-        'file'                      => 'required|mimes:pdf|file|max:15000'
+        'laporan_pmb'               => 'required|mimes:pdf|file|max:15000'
       ]);        
 
-      $file = $request->file('file');
+      $file = $request->file('laporan_pmb');     
       $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
-      $request->file->move('file_lampiran',$filename);
+      $request->laporan_pmb->move('laporan_pmb',$filename);
 
       $collections = new ReportMahasiswaBaru;
 
@@ -103,7 +103,7 @@ class ReportController extends Controller
       $collections->jumlah_maba_transfer        = $request->jumlah_maba_transfer;
       $collections->jumlah_mahasiswa_reguler    = $request->jumlah_mahasiswa_reguler;
       $collections->jumlah_mahasiswa_transfer   = $request->jumlah_mahasiswa_transfer;
-      $collections->lampiran                    = $filename;
+      $collections->laporan_pmb                 = $filename;
 
       $collections->save();
 

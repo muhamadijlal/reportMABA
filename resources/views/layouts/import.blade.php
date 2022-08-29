@@ -100,22 +100,14 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>virtual Account</th>
-            <th>Email</th>
-            <th>Nomor Handphone</th>
-            <th>Nomor Handphone Ayah</th>
-            <th>Nomor Handphone Ibu</th>
             <th>Nama</th>
-            <th>Sekolah</th>
-            <th>Gelombang</th>
-            <th>Tahun Lulus</th>
-            <th>Pilihan Prodi</th>
-            <th>Register</th>
-            <th>Ujian</th>
-            <th>Upload</th>
-            <th>Ukuran Baju</th>
+            <th>Pilihan Prodi 1</th>
+            <th>Pilihan Prodi 2</th>
+            <th>Pilihan Prodi 3</th>
+            <th>Pilihan Prodi 4</th>
+            <th>Pilihan Prodi 5</th>
+            <th>Status Kelulusan</th>
             <th>Periode</th>
-            <th>Lulus Seleksi</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0"></tbody>
@@ -205,23 +197,15 @@
       }
     },
     columns: [
-      { data: 'DT_RowIndex' },
-      { data: 'virtual_account', name: 'virtual_account' },
-      { data: 'email', name: 'email' },
-      { data: 'no_hp', name: 'no_hp' },
-      { data: 'no_hp_ayah', name: 'no_hp_ayah' },
-      { data: 'no_hp_ibu', name: 'no_hp_ibu' },
-      { data: 'nama', name: 'nama' },
-      { data: 'sekolah', name: 'sekolah' },
-      { data: 'gelombang', name: 'gelombang' },
-      { data: 'tahun_lulus', name: 'tahun_lulus' },
-      { data: 'pilihan_prodi', name: 'pilihan_prodi' },
-      { data: 'register', name: 'register' },
-      { data: 'ujian', name: 'ujian' },
-      { data: 'upload', name: 'upload' },
-      { data: 'ukuran_baju', name: 'ukuran_baju' },
+      { data: 'DT_RowIndex' },      
+      { data: 'nama_lengkap', name: 'nama_lengkap' },
+      { data: 'prodi1', name: 'prodi1' },
+      { data: 'prodi2', name: 'prodi2' },
+      { data: 'prodi3', name: 'prodi3' },
+      { data: 'prodi4', name: 'prodi4' },
+      { data: 'prodi5', name: 'prodi5' },
+      { data: 'status_kelulusan', name: 'status_kelulusan' },
       { data: 'periode', name: 'periode' },
-      { data: 'lulus_seleksi', name: 'lulus_seleksi' },
     ]
   });
   $('.buttonFilter').on('click', function(){

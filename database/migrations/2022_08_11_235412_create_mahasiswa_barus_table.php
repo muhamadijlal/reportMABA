@@ -23,6 +23,7 @@ class CreateMahasiswaBarusTable extends Migration
             $table->string('prodi4')->nullable();
             $table->string('prodi5')->nullable();
             $table->string('status_kelulusan')->nullable();
+            $table->string('periode');
             $table->timestamps();
         });
     }
