@@ -37,7 +37,7 @@ class ReportController extends Controller
           return $row->Ms_maba->count();
         })
         ->addColumn('status_kelulusan', function($row){
-          return $row->Ms_maba->where('status_kelulusan','lulus')->count();
+          return $row->Ms_maba->where('status_kelulusan','1')->count();
         })
         ->rawColumns([
             'aksi',
