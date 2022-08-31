@@ -98,7 +98,7 @@
   let table = $('#myTable').DataTable({
     processing: true,
     dom:"lBfrtip",
-    order: [[1, 'asc']],
+    order: [[1, 'desc']],
     buttons: [
       'copy','excel'
     ],

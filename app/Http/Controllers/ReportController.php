@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\File; 
 use App\Models\ReportMahasiswaBaru;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -24,6 +25,9 @@ class ReportController extends Controller
 
       return datatables()
         ->of($collections)
+        ->addColumn('periode', function($row){
+          return '<a href="/menu/report/detail/'.$row->id.'">'.$row->periode.'</a>';
+        })
         ->addColumn('aksi', function($row){
           return '<div>
           <a href="/menu/report/edit/'. $row->id .'" class="btn btn-icon btn-sm btn-warning"><span class="tf-icons bx bx-edit-alt"></span></a>
@@ -118,7 +122,9 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        //
+
+      $data = ReportMahasiswaBaru::where('id', $id)->first();      
+      return view('layouts.report-detail', compact('data'));
     }
 
     /**

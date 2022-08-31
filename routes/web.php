@@ -36,6 +36,7 @@ Route::middleware('auth')->group( function(){
   Route::prefix('menu')->group( function(){
     // Report
     Route::get('/add-report', [ReportController::class, 'create'])->name('add-report');
+    Route::get('/report/detail/{id}', [ReportController::class, 'show']);
     Route::post('/add-report/store', [ReportController::class, 'store']);
     Route::post('/report/json', [ReportController::class, 'report_json']);
     Route::get('/report/edit/{id}', [ReportController::class, 'edit'])->name('edit-report');
