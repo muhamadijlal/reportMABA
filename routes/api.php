@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/index',[ApieController::class, 'index']);
-Route::post('/store',[APieController::class, 'store']);
-Route::get('/edit/{id}',[APieController::class, 'edit']);
-Route::post('/update/{id}',[APieController::class, 'update']);
-Route::get('/destroy/{id}',[APieController::class, 'destroy']);
+Route::get('/reportPMB/index',[ApieController::class, 'index']);
+Route::post('/reportPMB/store',[APieController::class, 'store']);
+Route::get('/reportPMB/edit/{id}',[APieController::class, 'edit']);
+Route::post('/reportPMB/update/{id}',[APieController::class, 'update']);
+Route::get('/reportPMB/destroy/{id}',[APieController::class, 'destroy']);

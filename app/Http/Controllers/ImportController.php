@@ -11,8 +11,8 @@ class ImportController extends Controller
 {
     public function index()
   {
-    $data = MahasiswaBaru::select('periode')->distinct()->orderBy('periode','asc')->get();
-    $periode = ReportMahasiswaBaru::select('*')->distinct()->orderBy('periode','asc')->get();
+    $data = MahasiswaBaru::select('periode')->distinct()->orderBy('periode','desc')->get();
+    $periode = ReportMahasiswaBaru::select('*')->distinct()->orderBy('periode','desc')->get();
 
     return view('layouts.import', compact('data','periode'));
   }

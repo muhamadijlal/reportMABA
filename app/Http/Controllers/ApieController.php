@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ReportMahasiswaBaru;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ApieController extends Controller
 {
@@ -17,7 +18,7 @@ class ApieController extends Controller
         $collections = ReportMahasiswaBaru::get();
 
         return response()->json([
-            'message' => "Ente kadang kadang",
+            'message' => "Success",
             'data'    => $collections,
             'status'  => 200,
         ], 200);
@@ -40,7 +41,26 @@ class ApieController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {        
+
+        $rules = [
+            'periode'                   => 'required|min:4|max:4',
+            'daya_tampung'              => 'required',
+            'jumlah_maba_reguler'       => 'required',
+            'jumlah_maba_transfer'      => 'required',
+            'jumlah_mahasiswa_reguler'  => 'required',
+            'jumlah_mahasiswa_transfer' => 'required',
+            'laporan_pmb'               => 'required|mimes:pdf|file|max:15000',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return response()->json([
+                'messages' => 'Validation Errors',
+                'data'     => $validator->errors(),
+                'status'   => 404,
+            ], 404);
+        }
 
         $model = new ReportMahasiswaBaru;
 
@@ -54,7 +74,7 @@ class ApieController extends Controller
         $model->save();
         
         return response()->json([
-            'message' => "Ente kadang kadang",
+            'message' => "Success",
             'status'  => 200,
         ], 200);
     }
@@ -82,7 +102,7 @@ class ApieController extends Controller
 
         if($model) {
             return response()->json([
-                'message' => 'Ente kadang kadang',
+                'message' => 'Success',
                 'data'    => $model,
                 'status'  => 200,
             ], 200);
@@ -90,7 +110,7 @@ class ApieController extends Controller
         else
         {
             return response()->json([
-                'message' => 'Duarrrr',
+                'message' => 'Failed',
                 'status'  => 404,
             ], 404);
         }
@@ -109,6 +129,25 @@ class ApieController extends Controller
 
         if($model){
 
+            $rules = [
+                'periode'                   => 'required|min:4|max:4',
+                'daya_tampung'              => 'required',
+                'jumlah_maba_reguler'       => 'required',
+                'jumlah_maba_transfer'      => 'required',
+                'jumlah_mahasiswa_reguler'  => 'required',
+                'jumlah_mahasiswa_transfer' => 'required',
+                // 'laporan_pmb'               => 'required|mimes:pdf|file|max:15000',
+            ];
+    
+            $validator = Validator::make($request->all(), $rules);
+            if($validator->fails()){
+                return response()->json([
+                    'messages' => 'Validation Errors',
+                    'data'     => $validator->errors(),
+                    'status'   => 404,
+                ], 404);
+            }
+
             $model->periode                   = $request->periode;
             $model->daya_tampung              = $request->daya_tampung;
             $model->jumlah_maba_reguler       = $request->jumlah_maba_reguler;
@@ -119,14 +158,14 @@ class ApieController extends Controller
             $model->save();
 
             return response()->json([
-                'message' => 'Ente kadang kadang',
+                'message' => 'Success',
                 'status'  => 200,
             ], 200);
         }
         else
         {
             return response()->json([
-                'message' => 'Duarrrrr',
+                'message' => 'Failed',
                 'status'  => 404,
             ], 404);
         }
@@ -147,14 +186,14 @@ class ApieController extends Controller
             $model->delete(0);
 
             return response()->json([
-                'message'  => 'wassiuwassi',
+                'message'  => 'Success',
                 'status'   => 200,
             ], 200);
         }
         else
         {
             return response()->json([
-                'message'  => 'uwawauwuauwuauw',
+                'message'  => 'Failed',
                 'status'   => 404,
             ], 404);
         }

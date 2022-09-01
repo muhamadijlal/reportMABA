@@ -1,7 +1,9 @@
 @extends('master')
 
 @section('content')
-{{-- {{ Breadcrumbs::render('edit-report', $collection->id) }} --}}
+<div class="nav justify-content-end">
+  {{ Breadcrumbs::render('detail-report', $data->id) }}
+</div>
 <div class="col-lg-12">
   <div class="nav justify-content-end">
   </div>
@@ -33,18 +35,18 @@
           <tr>
             <td>1</td>
             <td>{{ $data->periode }}</td>
-            <td>{{ $data->Ms_maba->where('prodi1','Pendidikan Agama Islam')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','Teknik Informatika')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','Teknik Industri')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','Teknik Mesin')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','Sistem Informasi')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','Farmasi')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','Manajemen')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','Akuntansi')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','Psikologi')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','Ilmu Hukum')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','Pendidikan Guru Sekolah Dasar')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','Pend. Pancasila & Kewarganegaraan')->count() }}</td>            
+            <td>{{ $data->Ms_maba->where('prodi1','PI')->count() }}</td>            
+            <td>{{ $data->Ms_maba->where('prodi1','IF')->count() }}</td>            
+            <td>{{ $data->Ms_maba->where('prodi1','TI')->count() }}</td>            
+            <td>{{ $data->Ms_maba->where('prodi1','TM')->count() }}</td>            
+            <td>{{ $data->Ms_maba->where('prodi1','SI')->count() }}</td>            
+            <td>{{ $data->Ms_maba->where('prodi1','FM')->count() }}</td>            
+            <td>{{ $data->Ms_maba->where('prodi1','MN')->count() }}</td>            
+            <td>{{ $data->Ms_maba->where('prodi1','AK')->count() }}</td>            
+            <td>{{ $data->Ms_maba->where('prodi1','PSI')->count() }}</td>            
+            <td>{{ $data->Ms_maba->where('prodi1','HK')->count() }}</td>            
+            <td>{{ $data->Ms_maba->where('prodi1','PGSD')->count() }}</td>            
+            <td>{{ $data->Ms_maba->where('prodi1','PPKN')->count() }}</td>            
           </tr>
         </tbody>
       </table>

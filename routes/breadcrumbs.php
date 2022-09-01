@@ -8,6 +8,12 @@ Breadcrumbs::for('dashboard', function (BreadcrumbTrail $trail) {
   $trail->push('Dashboard', route('dashboard'));
 });
 
+// Dashboard > detail
+Breadcrumbs::for('detail-report', function (BreadcrumbTrail $trail, $data) {
+  $trail->parent('dashboard');  
+  $trail->push('Detail Report', route('detail-report', $data));
+});
+
 // Dashboard > form edit report
 Breadcrumbs::for('edit-report', function (BreadcrumbTrail $trail, $data) {
   $trail->parent('dashboard');

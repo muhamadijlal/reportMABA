@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\File; 
 use App\Models\ReportMahasiswaBaru;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -26,7 +25,7 @@ class ReportController extends Controller
       return datatables()
         ->of($collections)
         ->addColumn('periode', function($row){
-          return '<a href="/menu/report/detail/'.$row->id.'">'.$row->periode.'</a>';
+          return '<a href="/dashboard/report/detail/'.$row->id.'">'.$row->periode.'</a>';
         })
         ->addColumn('aksi', function($row){
           return '<div>
