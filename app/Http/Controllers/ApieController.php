@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use App\Models\ReportMahasiswaBaru;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -42,6 +43,18 @@ class ApieController extends Controller
      */
     public function store(Request $request)
     {        
+        $validationPeriod = ReportMahasiswaBaru::select('periode')->get();
+
+        foreach($validationPeriod as $periode)
+        {
+            if($periode->periode === $request->periode)
+            {
+                return response()->json([
+                    'message' => "Failed duplicate entry",
+                    'status'  => 404,
+                ], 404);
+            }
+        }
 
         $rules = [
             'periode'                   => 'required|min:4|max:4',
@@ -61,6 +74,10 @@ class ApieController extends Controller
                 'status'   => 404,
             ], 404);
         }
+
+        $file = $request->file('laporan_pmb');     
+        $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());         
+        Storage::putFileAs('file_upload', $file, $filename);
 
         $model = new ReportMahasiswaBaru;
 
@@ -124,39 +141,58 @@ class ApieController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {        
+        $rules = [
+            'periode'                   => 'required|min:4|max:4',
+            'daya_tampung'              => 'required',
+            'jumlah_maba_reguler'       => 'required',
+            'jumlah_maba_transfer'      => 'required',
+            'jumlah_mahasiswa_reguler'  => 'required',
+            'jumlah_mahasiswa_transfer' => 'required',
+            'file'                      => 'required|mimes:pdf|file|max:15000',
+        ];
+        
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return response()->json([
+                'messages' => 'Validation Errors',
+                'data'     => $validator->errors(),
+                'status'   => 404,
+            ], 404);
+        }
+
         $model = ReportMahasiswaBaru::find($id);
-
+        
         if($model){
-
-            $rules = [
-                'periode'                   => 'required|min:4|max:4',
-                'daya_tampung'              => 'required',
-                'jumlah_maba_reguler'       => 'required',
-                'jumlah_maba_transfer'      => 'required',
-                'jumlah_mahasiswa_reguler'  => 'required',
-                'jumlah_mahasiswa_transfer' => 'required',
-                // 'laporan_pmb'               => 'required|mimes:pdf|file|max:15000',
-            ];
+            if($request->file('file'))
+            {
+                $file = $request->file('file');
+                $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
+                // storing file
+                Storage::putFileAs('/file_upload', $file, $filename);        
+                // deleting file before
+                Storage::delete('file_upload'.'/'.$model->laporan_pmb);
     
-            $validator = Validator::make($request->all(), $rules);
-            if($validator->fails()){
-                return response()->json([
-                    'messages' => 'Validation Errors',
-                    'data'     => $validator->errors(),
-                    'status'   => 404,
-                ], 404);
+                $model->periode                   = $request->periode;
+                $model->daya_tampung              = $request->daya_tampung;
+                $model->jumlah_maba_reguler       = $request->jumlah_maba_reguler;
+                $model->jumlah_maba_transfer      = $request->jumlah_maba_transfer;
+                $model->jumlah_mahasiswa_reguler  = $request->jumlah_mahasiswa_reguler;
+                $model->jumlah_mahasiswa_transfer = $request->jumlah_mahasiswa_transfer;
+                $model->laporan_pmb               = $filename;
+                $model->save();
             }
-
-            $model->periode                   = $request->periode;
-            $model->daya_tampung              = $request->daya_tampung;
-            $model->jumlah_maba_reguler       = $request->jumlah_maba_reguler;
-            $model->jumlah_maba_transfer      = $request->jumlah_maba_transfer;
-            $model->jumlah_mahasiswa_reguler  = $request->jumlah_mahasiswa_reguler;
-            $model->jumlah_mahasiswa_transfer = $request->jumlah_mahasiswa_transfer;
-            $model->laporan_pmb               = $request->laporan_pmb;
-            $model->save();
-
+            else
+            {
+                $model->periode                   = $request->periode;
+                $model->daya_tampung              = $request->daya_tampung;
+                $model->jumlah_maba_reguler       = $request->jumlah_maba_reguler;
+                $model->jumlah_maba_transfer      = $request->jumlah_maba_transfer;
+                $model->jumlah_mahasiswa_reguler  = $request->jumlah_mahasiswa_reguler;
+                $model->jumlah_mahasiswa_transfer = $request->jumlah_mahasiswa_transfer;
+                $model->save();
+            }
+            
             return response()->json([
                 'message' => 'Success',
                 'status'  => 200,

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use App\Imports\MahasiswaBaruImport;
 use App\Models\MahasiswaBaru;
 use App\Models\ReportMahasiswaBaru;
@@ -52,8 +53,7 @@ class ImportController extends Controller
       'periode' => 'required'
     ]);    
 
-    $data = MahasiswaBaru::where('periode', $request->periode)->first();
-    $isset = ReportMahasiswaBaru::where('periode', $request->periode)->first(); 
+    $data = MahasiswaBaru::where('periode', $request->periode)->first();    
     // validation periode if the periode is exists on database
     if($data)
     {
@@ -62,12 +62,14 @@ class ImportController extends Controller
     // Validation periode report maba is exist or not
     else
     {
-      $file = $request->file('file');
-      $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
-      $request->file->move('file_upload',$filename);
-
+      
+      $file = $request->file('file');     
+      $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());         
+      Storage::putFileAs('file_import', $file, $filename);
+      
       $import = new MahasiswaBaruImport;
-      $import->import(public_path('/file_upload/'.$filename));
+      $path = storage_path('/app/public/file_import/'.$filename);
+      $import->import($path);
 
       if($import->failures()->isNotEmpty()) {
         return back()->withFailures($import->failures());

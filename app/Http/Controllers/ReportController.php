@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\Storage;
 use App\Models\ReportMahasiswaBaru;
 use Illuminate\Http\Request;
 
@@ -34,7 +34,7 @@ class ReportController extends Controller
           </div>';            
         })
         ->addColumn('laporan_pmb',function($row){
-          return '<a target="_blank" href="' . asset('laporan_pmb') . '/' . $row->laporan_pmb . '">Lihat bukti</a>';
+          return '<a target="_blank" href="' . asset('/storage/file_upload') . '/' . $row->laporan_pmb . '">Lihat bukti</a>';
         })
         ->addColumn('pendaftar', function($row){
           return $row->Ms_maba->count();
@@ -92,11 +92,11 @@ class ReportController extends Controller
         'jumlah_mahasiswa_reguler'  => 'required',
         'jumlah_mahasiswa_transfer' => 'required',
         'laporan_pmb'               => 'required|mimes:pdf|file|max:15000'
-      ]);        
+      ]);
 
       $file = $request->file('laporan_pmb');     
-      $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
-      $request->laporan_pmb->move('laporan_pmb',$filename);
+      $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());         
+      Storage::putFileAs('file_upload', $file, $filename);
 
       $collections = new ReportMahasiswaBaru;
 
@@ -121,7 +121,6 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-
       $data = ReportMahasiswaBaru::where('id', $id)->first();      
       return view('layouts.report-detail', compact('data'));
     }
@@ -134,7 +133,7 @@ class ReportController extends Controller
      */
     public function edit($id)
     {
-       $collection = ReportMahasiswaBaru::where('id', $id)->first();       
+       $collection = ReportMahasiswaBaru::where('id', $id)->first();
 
        return view('layouts.edit-report', compact('collection'));
     }
@@ -160,14 +159,14 @@ class ReportController extends Controller
 
       $collection = ReportMahasiswaBaru::find($id);
 
-      if($request->file)
+      if($request->file('file'))
       {
         $file = $request->file('file');
         $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());
-        $request->file->move('file_lampiran',$filename);
-        $file->getClientOriginalName();
-        $destinationPath = 'file_lampiran';
-        File::delete($destinationPath.'/'.$collection->lampiran);
+        // storing file
+        Storage::putFileAs('/file_upload', $file, $filename);        
+        // deleting file before
+        Storage::delete('file_upload'.'/'.$collection->laporan_pmb);
 
         $collection->periode                     = $request->periode;
         $collection->daya_tampung                = $request->daya_tampung;
@@ -175,7 +174,7 @@ class ReportController extends Controller
         $collection->jumlah_maba_transfer        = $request->jumlah_maba_transfer;
         $collection->jumlah_mahasiswa_reguler    = $request->jumlah_mahasiswa_reguler;
         $collection->jumlah_mahasiswa_transfer   = $request->jumlah_mahasiswa_transfer;
-        $collection->lampiran                    = $filename;
+        $collection->laporan_pmb                 = $filename;
 
         $collection->save();
       }

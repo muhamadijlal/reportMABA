@@ -77,7 +77,7 @@
           @enderror
         </div>
         <div class="my-3">
-          <a target="_blank" href="{{ asset('file_lampiran') . '/' . $collection->lampiran }}"><span class="bx bx-file"></span> Lihat file yang tersedia</a>
+          <a target="_blank" href="{{ asset('/storage/file_upload') . '/' . $collection->laporan_pmb }}"><span class="bx bx-file"></span> Lihat file yang tersedia</a>
         </div>
         <button type="submit" class="btn btn-primary mt-4">Submit</button>
       </form>
