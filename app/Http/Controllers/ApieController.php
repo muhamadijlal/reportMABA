@@ -115,22 +115,29 @@ class ApieController extends Controller
      */
     public function edit($id)
     {
-        $model = ReportMahasiswaBaru::find($id);
+        try {
+            $model = ReportMahasiswaBaru::findOrFail($id);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'status'  => 404,
+            ], 404);
+        }
 
-        if($model) {
+        // if($model) {
             return response()->json([
                 'message' => 'Success',
                 'data'    => $model,
                 'status'  => 200,
             ], 200);
-        }
-        else
-        {
-            return response()->json([
-                'message' => 'Failed',
-                'status'  => 404,
-            ], 404);
-        }
+        // }
+        // else
+        // {
+        //     return response()->json([
+        //         'message' => 'Failed',
+        //         'status'  => 404,
+        //     ], 404);
+        // }
     }
 
     /**
@@ -161,9 +168,16 @@ class ApieController extends Controller
             ], 404);
         }
 
-        $model = ReportMahasiswaBaru::find($id);
+        try {
+            $model = ReportMahasiswaBaru::findOrFail($id);
+        } catch (\Exception $e) {
+            return response()->json([
+                'messages' => $e->getMessage(),                
+                'status'   => 404,
+            ], 404);
+        }
         
-        if($model){
+        // if($model){
             if($request->file('file'))
             {
                 $file = $request->file('file');
@@ -197,14 +211,14 @@ class ApieController extends Controller
                 'message' => 'Success',
                 'status'  => 200,
             ], 200);
-        }
-        else
-        {
-            return response()->json([
-                'message' => 'Failed',
-                'status'  => 404,
-            ], 404);
-        }
+        // }
+        // else
+        // {
+        //     return response()->json([
+        //         'message' => 'Failed',
+        //         'status'  => 404,
+        //     ], 404);
+        // }
     }
 
     /**
@@ -215,23 +229,30 @@ class ApieController extends Controller
      */
     public function destroy($id)
     {
-        $model = ReportMahasiswaBaru::find($id);
+        try {
+            $model = ReportMahasiswaBaru::findOrFail($id);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message'  => $e->getMessage(),
+                'status'   => 404,
+            ], 404);
+        }
 
-        if($model){
+        // if($model){
 
-            $model->delete(0);
+            $model->delete();
 
             return response()->json([
                 'message'  => 'Success',
                 'status'   => 200,
             ], 200);
-        }
-        else
-        {
-            return response()->json([
-                'message'  => 'Failed',
-                'status'   => 404,
-            ], 404);
-        }
+        // }
+        // else
+        // {
+        //     return response()->json([
+        //         'message'  => 'Failed',
+        //         'status'   => 404,
+        //     ], 404);
+        // }
     }
 }

@@ -4,7 +4,7 @@ namespace App\Imports;
 
 use App\Models\MahasiswaBaru;
 use App\Models\ReportMahasiswaBaru;
-use Illuminate\Support\Str;
+use Illuminate\Auth\Events\Failed;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
@@ -13,6 +13,8 @@ use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Validators\Failure;
+use Throwable;
 
 class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, WithValidation, SkipsOnFailure
 {
@@ -25,8 +27,9 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
     */
     public function model(array $row)
     {
+        // $validate = isset($row['nama_lengkap']) && isset($row['prodi1']) && isset($row['prodi2']) && isset($row['prodi3']) && isset($row['prodi4']) && isset($row['prodi5']) && isset($row['status_kelulusan']);
+                
         $data = ReportMahasiswaBaru::where('periode', request('periode'))->first();
-
         return new MahasiswaBaru([
             'id_report_maba'  => $data->id,            
             'nama_lengkap'    => $row['nama_lengkap'],
@@ -37,13 +40,14 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
             'prodi5'          => $row['prodi5'],
             'periode'         => $data->periode,
             'status_kelulusan'=> $row['status_kelulusan'],
-        ]);        
+        ]);
     }
 
     public function rules(): array
     {
         return [
-            '*.virtual_account' => ['unique:ms_maba,virtual_account'],
+            // 'prodi4' => ['required'],
+            // '*.virtual_account' => ['unique:ms_maba,virtual_account'],
             // '*.email' => ['unique:ms_maba,email']
         ];
     }

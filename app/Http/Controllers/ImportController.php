@@ -67,9 +67,10 @@ class ImportController extends Controller
       $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());         
       Storage::putFileAs('file_import', $file, $filename);
       
-      $import = new MahasiswaBaruImport;
+      $import = new MahasiswaBaruImport;      
       $path = storage_path('/app/public/file_import/'.$filename);
       $import->import($path);
+
 
       if($import->failures()->isNotEmpty()) {
         return back()->withFailures($import->failures());

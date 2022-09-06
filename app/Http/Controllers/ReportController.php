@@ -121,7 +121,16 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-      $data = ReportMahasiswaBaru::where('id', $id)->first();      
+      try {
+
+        $data = ReportMahasiswaBaru::where('id', $id)->firstOrFail($id);
+
+      } catch (\Exception $e) {
+
+        // return 'Hello';
+        return view('errors.404');
+      }
+
       return view('layouts.report-detail', compact('data'));
     }
 
@@ -133,7 +142,11 @@ class ReportController extends Controller
      */
     public function edit($id)
     {
-       $collection = ReportMahasiswaBaru::where('id', $id)->first();
+       try {
+        $collection = ReportMahasiswaBaru::where('id', $id)->firstOrFail();
+       } catch (\Exception $e) {
+        return view('errors.404');
+       }
 
        return view('layouts.edit-report', compact('collection'));
     }
@@ -157,7 +170,7 @@ class ReportController extends Controller
         'file'                      => 'mimes:pdf|file|max:15000'
       ]);
 
-      $collection = ReportMahasiswaBaru::find($id);
+        $collection = ReportMahasiswaBaru::find($id);
 
       if($request->file('file'))
       {
@@ -201,7 +214,11 @@ class ReportController extends Controller
      */
     public function destroy($id)
     {
-      $collection = ReportMahasiswaBaru::find($id);
+      try {
+        $collection = ReportMahasiswaBaru::findOrFail($id);        
+      } catch (\Exception $e) {
+        return redirect('/dashboard')->with('error', $e->getMessage());
+      }
 
       $collection->delete();
 
