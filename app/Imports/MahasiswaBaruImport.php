@@ -4,7 +4,6 @@ namespace App\Imports;
 
 use App\Models\MahasiswaBaru;
 use App\Models\ReportMahasiswaBaru;
-use Illuminate\Auth\Events\Failed;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
@@ -13,7 +12,6 @@ use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Validators\Failure;
 use Throwable;
 
 class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, WithValidation, SkipsOnFailure
@@ -27,17 +25,17 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
     */
     public function model(array $row)
     {
-        // $validate = isset($row['nama_lengkap']) && isset($row['prodi1']) && isset($row['prodi2']) && isset($row['prodi3']) && isset($row['prodi4']) && isset($row['prodi5']) && isset($row['status_kelulusan']);
+        $validate = isset($row['nama_lengkap']) && isset($row['prodi1']) && isset($row['prodi2']) && isset($row['prodi3']) && isset($row['prodi4']) && isset($row['prodi5']) && isset($row['status_kelulusan']);
                 
         $data = ReportMahasiswaBaru::where('periode', request('periode'))->first();
         return new MahasiswaBaru([
             'id_report_maba'  => $data->id,            
             'nama_lengkap'    => $row['nama_lengkap'],
             'prodi1'          => $row['prodi1'],
-            'prodi2'          => $row['prodi2'],
-            'prodi3'          => $row['prodi3'],
-            'prodi4'          => $row['prodi4'],
-            'prodi5'          => $row['prodi5'],
+            'prodi2'          => isset($row['prodi2']) ? $row['prodi2'] : null,
+            'prodi3'          => isset($row['prodi3']) ? $row['prodi3'] : null,
+            'prodi4'          => isset($row['prodi4']) ? $row['prodi4'] : null,
+            'prodi5'          => isset($row['prodi5']) ? $row['prodi5'] : null,            
             'periode'         => $data->periode,
             'status_kelulusan'=> $row['status_kelulusan'],
         ]);
@@ -46,7 +44,12 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
     public function rules(): array
     {
         return [
-            // 'prodi4' => ['required'],
+            '*.nama_lengkap' => ['required'],
+            '*.prodi1'       => ['required'],
+            '*.prodi2'       => ['required'],
+            '*.prodi3'       => ['required'],
+            '*.prodi4'       => ['required'],
+            '*.prodi5'       => ['required'],
             // '*.virtual_account' => ['unique:ms_maba,virtual_account'],
             // '*.email' => ['unique:ms_maba,email']
         ];
