@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MahasiswaBaru;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ReportMahasiswaBaru;
 use Illuminate\Http\Request;
@@ -98,6 +99,7 @@ class ReportController extends Controller
       $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());         
       Storage::putFileAs('file_upload', $file, $filename);
 
+      
       $collections = new ReportMahasiswaBaru;
 
       $collections->periode                     = $request->periode;
@@ -213,15 +215,21 @@ class ReportController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-      try {
+    {      
+      
+      try {        
         $collection = ReportMahasiswaBaru::findOrFail($id);        
+        $data = MahasiswaBaru::where('id', $id)->first();
+  
+        if(!$data){
+          $collection->delete();
+          return redirect('/dashboard')->with('success','data deleted successfully!');      
+        }
+        
       } catch (\Exception $e) {
-        return redirect('/dashboard')->with('error', $e->getMessage());
+        return redirect('/dashboard')->with('error', $e->getMessage());  
       }
 
-      $collection->delete();
-
-      return redirect('/dashboard')->with('success','data deleted successfully!');
+      return redirect('/dashboard')->with('error','Data on import periode '. $data->periode .' must be deleted first!');
     }
 }

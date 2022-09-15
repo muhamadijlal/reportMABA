@@ -13,11 +13,12 @@ class RegisterController extends Controller
     }
 
     public function store(Request $request) {
+
         $request->validate([
             'name'           => ['required'],
             'email'          => ['required','unique:users,email'],
-            'password'       => ['required','min:6','max:12','same:retypePassword'],
-            'retypePassword' => ['required','min:6','max:12']
+            'password'       => ['required','min:6','max:12'],
+            'retypePassword' => ['required','min:6','max:12', 'confirmed']
         ]);
 
         $user = new User;
@@ -29,6 +30,6 @@ class RegisterController extends Controller
 
         $user->save();
 
-        return redirect('/login');
+        return redirect('/signin')->withSuccess('Your account has been created!');
     }
 }
