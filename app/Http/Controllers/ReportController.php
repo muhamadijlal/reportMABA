@@ -99,7 +99,6 @@ class ReportController extends Controller
       $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());         
       Storage::putFileAs('file_upload', $file, $filename);
 
-      
       $collections = new ReportMahasiswaBaru;
 
       $collections->periode                     = $request->periode;
@@ -125,11 +124,9 @@ class ReportController extends Controller
     {
       try {
 
-        $data = ReportMahasiswaBaru::where('id', $id)->firstOrFail($id);
-
+        $data = ReportMahasiswaBaru::where('id', $id)->firstOrFail();
       } catch (\Exception $e) {
 
-        // return 'Hello';
         return view('errors.404');
       }
 
@@ -215,11 +212,12 @@ class ReportController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {      
-      
-      try {        
-        $collection = ReportMahasiswaBaru::findOrFail($id);        
-        $data = MahasiswaBaru::where('id', $id)->first();
+    {
+      try {
+
+        $collection = ReportMahasiswaBaru::findOrFail($id);
+        $periode = $collection->periode;
+        $data = MahasiswaBaru::where('periode', $periode)->first();
   
         if(!$data){
           $collection->delete();

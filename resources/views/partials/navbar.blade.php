@@ -17,7 +17,7 @@
           </div>
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
-          <li>
+          <li>            
             <form action="/logout" method="POST">
               @csrf
               <button class="dropdown-item">
