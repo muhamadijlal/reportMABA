@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/reportPMB/index',[ApieController::class, 'index']);
+Route::get('/show/total/prodi/api/{id}', [ApieController::class, 'show']);
 Route::post('/reportPMB/store',[APieController::class, 'store']);
 Route::get('/reportPMB/edit/{id}',[APieController::class, 'edit']);
 Route::post('/reportPMB/update/{id}',[APieController::class, 'update']);

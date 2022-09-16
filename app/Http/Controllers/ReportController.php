@@ -31,8 +31,8 @@ class ReportController extends Controller
         ->addColumn('aksi', function($row){
           return '<div>
           <a href="/menu/report/edit/'. $row->id .'" class="btn btn-icon btn-sm btn-warning"><span class="tf-icons bx bx-edit-alt"></span></a>
-          <button class="btn btn-icon btn-sm btn-danger" onclick="confirmDelete('.$row->id.')" ><span class="tf-icons bx bx-trash"></span></button>
-          </div>';            
+          <button class="btn btn-icon btn-sm btn-danger" onclick="confirmDelete('.$row->id.')" ><span class="tf-icons bx bx-trash"></span></button>        
+          </div>';
         })
         ->addColumn('laporan_pmb',function($row){
           return '<a target="_blank" href="' . asset('/storage/file_upload') . '/' . $row->laporan_pmb . '">Lihat bukti</a>';
@@ -122,15 +122,24 @@ class ReportController extends Controller
      */
     public function show($id)
     {
+      return redirect()->back();
+      
       try {
 
         $data = ReportMahasiswaBaru::where('id', $id)->firstOrFail();
       } catch (\Exception $e) {
 
         return view('errors.404');
-      }
+      }            
 
-      return view('layouts.report-detail', compact('data'));
+      $IF = $data->Ms_maba->where('prodi1','IF')
+                          ->orWhere('prodi2','IF')
+                          ->orWhere('prodi3','IF')
+                          ->orWhere('prodi4','IF')
+                          ->orWhere('prodi5','IF')
+                          ->count();
+
+      return view('layouts.report-detail', compact('IF'));
     }
 
     /**

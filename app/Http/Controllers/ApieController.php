@@ -104,7 +104,39 @@ class ApieController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = ReportMahasiswaBaru::where('id', $id)->firstOrFail();
+        $relationCollect = $data->Ms_maba;
+        $countIf   = $relationCollect->where('prodi1','IF')->count();
+        $countAk   = $relationCollect->where('prodi1','AK')->count();
+        $countPi   = $relationCollect->where('prodi1','PI')->count();
+        $countTi   = $relationCollect->where('prodi1','TI')->count();
+        $countTm   = $relationCollect->where('prodi1','TM')->count();
+        $countSi   = $relationCollect->where('prodi1','SI')->count();
+        $countFm   = $relationCollect->where('prodi1','FM')->count();
+        $countMn   = $relationCollect->where('prodi1','MN')->count();
+        $countAk   = $relationCollect->where('prodi1','AK')->count();
+        $countPsi  = $relationCollect->where('prodi1','PSI')->count();
+        $countHk   = $relationCollect->where('prodi1','HK')->count();
+        $countPgsd = $relationCollect->where('prodi1','PGSD')->count();
+        $countPpkn = $relationCollect->where('prodi1','PPKN')->count();
+
+        return response()->json([
+            'message' => "Success",
+            'data' => [
+                    'total_IF'   => $countIf,
+                    'total_AK'   => $countAk,
+                    'total_PI'   => $countPi,
+                    'total_TI'   => $countTi,
+                    'total_TM'   => $countTm,
+                    'total_SI'   => $countSi,
+                    'total_FM'   => $countFm,
+                    'total_MN'   => $countMn,
+                    'total_PSI'  => $countPsi,
+                    'total_HK'   => $countHk,
+                    'total_PGSD' => $countPgsd,
+                    'total_PPKN' => $countPpkn,
+            ]            
+        ], 200);
     }
 
     /**
