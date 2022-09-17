@@ -26,7 +26,7 @@ php artisan serve
 | ------------- | ------------- |
 | user@user.com  | user123  |
 
-## credentials
+## tools
 library : [laravel excel](https://laravel-excel.com/) | [Bootstrap5](https://getbootstrap.com/docs/5.0/getting-started/introduction/) | [Yajra](https://yajrabox.com/docs/laravel-datatables/master/installation)
 <br>
 template admin : [sneat](https://github.com/themeselection/sneat-html-laravel-admin-template-free)
