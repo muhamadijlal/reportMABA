@@ -12,7 +12,9 @@ next step just follow step below
 
 before that make your name db on your local same as file .env
 
-```python
+```bash
+composer install or composer update
+
 php artisan migrate --seed
 
 php artisan key:generate
