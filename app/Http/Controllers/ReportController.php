@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MahasiswaBaru;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use App\Models\ReportMahasiswaBaru;
 use Illuminate\Http\Request;
 
@@ -15,13 +16,13 @@ class ReportController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {      
         return view('layouts.report');
     }
 
     public function report_json(){
 
-    $collections = ReportMahasiswaBaru::get();
+    $collections = ReportMahasiswaBaru::get();    
 
       return datatables()
         ->of($collections)
@@ -38,7 +39,35 @@ class ReportController extends Controller
           return '<a target="_blank" href="' . asset('/storage/file_upload') . '/' . $row->laporan_pmb . '">Lihat bukti</a>';
         })
         ->addColumn('pendaftar', function($row){
-          return $row->Ms_maba->count();
+
+          $prodi1 = DB::table('ms_maba')
+            ->where('prodi1', '!=', null)
+            ->where('periode',  $row->periode)
+            ->count();
+            
+          $prodi2 = DB::table('ms_maba')
+            ->where('prodi2', '!=', null)
+            ->where('periode', $row->periode)
+            ->count();
+
+          $prodi3 = DB::table('ms_maba')
+            ->where('prodi3', '!=', null)
+            ->where('periode', $row->periode)
+            ->count();
+
+          $prodi4 = DB::table('ms_maba')
+            ->where('prodi4', '!=', null)
+            ->where('periode', $row->periode)
+            ->count();
+
+          $prodi5 = DB::table('ms_maba')
+            ->where('prodi5', '!=', null)
+            ->where('periode', $row->periode)
+            ->count();
+
+          $total = $prodi1 + $prodi2 + $prodi3 + $prodi4 + $prodi5;
+
+          return $total;          
         })
         ->addColumn('status_kelulusan', function($row){
           return $row->Ms_maba->where('status_kelulusan','1')->count();
