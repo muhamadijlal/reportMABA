@@ -16,8 +16,9 @@ class ReportController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {      
-        return view('layouts.report');
+    {
+
+      return view('layouts.report');
     }
 
     public function report_json(){
@@ -38,36 +39,19 @@ class ReportController extends Controller
         ->addColumn('laporan_pmb',function($row){
           return '<a target="_blank" href="' . asset('/storage/file_upload') . '/' . $row->laporan_pmb . '">Lihat bukti</a>';
         })
-        ->addColumn('pendaftar', function($row){
+        ->addColumn('pendaftar', function($row){          
+          $query = DB::table('ms_maba')
+          ->select('periode', 
+          DB::raw('count(if(prodi1 is not null, 1, NUll)) + 
+                   count(if(prodi2 is not null, 1, NUll)) + 
+                   count(if(prodi3 is not null, 1, NUll)) + 
+                   count(if(prodi4 is not null, 1, NUll)) + 
+                   count(if(prodi5 is not null, 1, NUll)) as total_prodi'))
+          ->where('periode', $row->periode)
+          ->groupBy('periode')
+          ->get();          
 
-          $prodi1 = DB::table('ms_maba')
-            ->where('prodi1', '!=', null)
-            ->where('periode',  $row->periode)
-            ->count();
-            
-          $prodi2 = DB::table('ms_maba')
-            ->where('prodi2', '!=', null)
-            ->where('periode', $row->periode)
-            ->count();
-
-          $prodi3 = DB::table('ms_maba')
-            ->where('prodi3', '!=', null)
-            ->where('periode', $row->periode)
-            ->count();
-
-          $prodi4 = DB::table('ms_maba')
-            ->where('prodi4', '!=', null)
-            ->where('periode', $row->periode)
-            ->count();
-
-          $prodi5 = DB::table('ms_maba')
-            ->where('prodi5', '!=', null)
-            ->where('periode', $row->periode)
-            ->count();
-
-          $total = $prodi1 + $prodi2 + $prodi3 + $prodi4 + $prodi5;
-
-          return $total;          
+          return $query[0]->total_prodi;
         })
         ->addColumn('status_kelulusan', function($row){
           return $row->Ms_maba->where('status_kelulusan','1')->count();
@@ -151,24 +135,25 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-      return redirect()->back();
+      // return redirect()->back();
       
       try {
 
         $data = ReportMahasiswaBaru::where('id', $id)->firstOrFail();
+        $periode = $data->periode;
+
       } catch (\Exception $e) {
-
+        
         return view('errors.404');
-      }            
+      }      
 
-      $IF = $data->Ms_maba->where('prodi1','IF')
-                          ->orWhere('prodi2','IF')
-                          ->orWhere('prodi3','IF')
-                          ->orWhere('prodi4','IF')
-                          ->orWhere('prodi5','IF')
-                          ->count();
+      $query = DB::table('ms_maba')
+      ->select('periode','prodi1 as prodi', DB::raw('count(prodi1)+count(prodi2)+count(prodi3)+count(prodi4)+count(prodi5) as total_prodi'))
+      ->where('periode', $periode)
+      ->groupBy('periode','prodi1')
+      ->get();
 
-      return view('layouts.report-detail', compact('IF'));
+      return view('layouts.report-detail', compact('query','data'));
     }
 
     /**

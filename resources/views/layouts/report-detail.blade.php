@@ -17,36 +17,18 @@
           <tr>
             <th>No</th>
             <th>Periode</th>
-            <th>PI</th>            
-            <th>IF</th>            
-            <th>TI</th>            
-            <th>TM</th>            
-            <th>SI</th>            
-            <th>FM</th>            
-            <th>MN</th>            
-            <th>AK</th>            
-            <th>PSI</th>            
-            <th>HK</th>            
-            <th>PGSD</th>            
-            <th>PPKN</th>            
+            @foreach ($query as $item)
+              <th>{{ $item->prodi }}</th>
+            @endforeach            
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>1</td>
             <td>{{ $data->periode }}</td>
-            <td>{{ $data->Ms_maba->where('prodi1','PI')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','IF')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','TI')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','TM')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','SI')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','FM')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','MN')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','AK')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','PSI')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','HK')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','PGSD')->count() }}</td>            
-            <td>{{ $data->Ms_maba->where('prodi1','PPKN')->count() }}</td>            
+            @foreach ($query as $item)
+              <td>{{ $item->total_prodi }}</td>
+            @endforeach
           </tr>
         </tbody>
       </table>
