@@ -28,4 +28,5 @@ php artisan serve
 
 ## License
 [haidarijlal](https://github.com/muhamadijlal/)
+<br>
 [UBP Karawang](https://ubpkarawang.ac.id/)
