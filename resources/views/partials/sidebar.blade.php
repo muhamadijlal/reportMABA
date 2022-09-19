@@ -6,7 +6,7 @@
       <span class="app-brand-logo demo">        
         <img src="{{ asset('assets/img/logo/ubp.png') }}" alt="" style="height: 50px; width: 50px;">
       </span>
-      <span class="app-brand-text demo menu-text fw-bolder ms-2">UBP aja</span>
+      <span class="app-brand-text demo menu-text fw-bolder ms-2">dataPMB</span>
     </a>
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
       <i class="bx bx-chevron-left bx-sm align-middle"></i>

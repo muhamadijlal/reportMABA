@@ -27,7 +27,8 @@ Route::middleware('guest')->group( function() {
   Route::post('/register',[RegisterController::class, 'store']);
 });
 
-Route::middleware('auth')->group( function(){
+Route::middleware('auth')->group( function(){  
+
   // Dashboard
   Route::get('/dashboard', [ReportController::class, 'index'])->name('dashboard');
   Route::get('/dashboard/report/detail/{id}', [ReportController::class, 'show'])->name('detail-report');

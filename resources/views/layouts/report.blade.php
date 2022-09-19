@@ -17,7 +17,7 @@
       <div class="col-sm-7">
         <div class="card-body">
           <h3 class="card-title text-primary">Selamat Datang! 🎉</h3>
-          <p class="mb-4">Selamat datang di web rekap data mahasiswa baru.
+          <p class="mb-4">Selamat datang di web rekap data mahasiswa baru.</p>          
         </div>
       </div>
       <div class="col-sm-5 text-center text-sm-left">
