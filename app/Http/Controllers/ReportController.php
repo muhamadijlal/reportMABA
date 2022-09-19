@@ -40,6 +40,8 @@ class ReportController extends Controller
           return '<a target="_blank" href="' . asset('/storage/file_upload') . '/' . $row->laporan_pmb . '">Lihat bukti</a>';
         })
         ->addColumn('pendaftar', function($row){          
+          $periode = $row->periode;
+        
           $query = DB::table('ms_maba')
           ->select('periode', 
           DB::raw('count(if(prodi1 is not null, 1, NUll)) + 
@@ -47,11 +49,18 @@ class ReportController extends Controller
                    count(if(prodi3 is not null, 1, NUll)) + 
                    count(if(prodi4 is not null, 1, NUll)) + 
                    count(if(prodi5 is not null, 1, NUll)) as total_prodi'))
-          ->where('periode', $row->periode)
+          ->where('periode', $periode)
           ->groupBy('periode')
-          ->get();          
+          ->get();    
+        
+          if($query->count() == 0){
+            return 0;
+          }
+          else
+          {
+            return $query;
+          }
 
-          return $query[0]->total_prodi;
         })
         ->addColumn('status_kelulusan', function($row){
           return $row->Ms_maba->where('status_kelulusan','1')->count();
