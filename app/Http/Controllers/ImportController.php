@@ -61,14 +61,17 @@ class ImportController extends Controller
     }
     // Validation periode report maba is exist or not
     else
-    {
-      
+    {    
+
       $file = $request->file('file');     
       $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());         
       Storage::putFileAs('file_import', $file, $filename);
       
-      $import = new MahasiswaBaruImport;      
-      $path = storage_path('/app/public/file_import/'.$filename);
+      $import = new MahasiswaBaruImport;  
+      // Server
+      // $path = storage_path('/app/file_import/'.$filename);
+      // local
+      $path = storage_path('/app/public/file_import/'.$filename);      
       $import->import($path);
 
 
@@ -77,10 +80,7 @@ class ImportController extends Controller
       }
       return redirect('/menu/import-mahasiswa')->withStatus('Excel file imported successfully');
     }
-    // else
-    // {
-    //   return redirect()->back()->with("error","Periode doesn't exist! you must input data on menu Tambah Report first!");
-    // }
+
   }
 
   public function destroy(Request $request)

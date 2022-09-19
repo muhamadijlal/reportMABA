@@ -44,12 +44,12 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
     public function rules(): array
     {
         return [
-            '*.nama_lengkap' => ['required'],
-            '*.prodi1'       => ['required'],
-            '*.prodi2'       => ['required'],
-            '*.prodi3'       => ['required'],
-            '*.prodi4'       => ['required'],
-            '*.prodi5'       => ['required'],
+            // '*.nama_lengkap' => ['required'],
+            // '*.prodi1'       => ['required'],
+            // '*.prodi2'       => ['required'],
+            // '*.prodi3'       => ['required'],
+            // '*.prodi4'       => ['required'],
+            // '*.prodi5'       => ['required'],
             // '*.virtual_account' => ['unique:ms_maba,virtual_account'],
             // '*.email' => ['unique:ms_maba,email']
         ];
