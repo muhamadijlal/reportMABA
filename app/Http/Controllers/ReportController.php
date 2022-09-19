@@ -58,7 +58,8 @@ class ReportController extends Controller
           }
           else
           {
-            return $query;
+            $total_prodi = $query[0]->total_prodi;
+            return $total_prodi;
           }
 
         })
