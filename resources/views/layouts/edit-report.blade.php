@@ -15,7 +15,7 @@
         @csrf          
         <div class="mb-3">
           <label class="form-label" for="basic-default-fullname">Periode</label>
-          <input type="text" class="form-control @error('periode') is-invalid @enderror" id="basic-default-fullname" placeholder="Input Periode" name="periode" value="{{ $collection->periode }}">
+          <input type="text" class="form-control @error('periode') is-invalid @enderror" id="basic-default-fullname" placeholder="Input Periode" name="periode" value="{{ $collection->periode }}" readonly>
           @error('periode')
             <div class="invalid-feedback">{{ $message }}</div>
           @enderror
