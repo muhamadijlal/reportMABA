@@ -57,7 +57,7 @@ class ReportController extends Controller
             return 0;
           }
           else
-          {
+          {            
             $total_prodi = $query[0]->total_prodi;
             return $total_prodi;
           }
@@ -157,13 +157,42 @@ class ReportController extends Controller
         return view('errors.404');
       }      
 
-      $query = DB::table('ms_maba')
-      ->select('periode','prodi1 as prodi', DB::raw('count(prodi1)+count(prodi2)+count(prodi3)+count(prodi4)+count(prodi5) as total_prodi'))
+      $all = DB::table('ms_maba')
+      ->select('periode','prodi1 as prodi', 
+      DB::raw('count(prodi1)+
+               count(prodi2)+
+               count(prodi3)+
+               count(prodi4)+
+               count(prodi5) as total_prodi'))
       ->where('periode', $periode)
       ->groupBy('periode','prodi1')
       ->get();
 
-      return view('layouts.report-detail', compact('query','data'));
+      $transfer = DB::table('ms_maba')
+      ->select('periode','prodi1 as prodi', 
+      DB::raw('count(prodi1)+
+               count(prodi2)+
+               count(prodi3)+
+               count(prodi4)+
+               count(prodi5) as total_prodi'))
+      ->where('periode', $periode)
+      ->where('transfer',1)
+      ->groupBy('periode','prodi1')
+      ->get();
+
+      $reguler = DB::table('ms_maba')
+      ->select('periode','prodi1 as prodi', 
+      DB::raw('count(prodi1)+
+               count(prodi2)+
+               count(prodi3)+
+               count(prodi4)+
+               count(prodi5) as total_prodi'))
+      ->where('periode', $periode)
+      ->where('transfer',0)
+      ->groupBy('periode','prodi1')
+      ->get();
+
+      return view('layouts.report-detail', compact('all','data','transfer','reguler'));
     }
 
     /**

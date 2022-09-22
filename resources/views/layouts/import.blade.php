@@ -102,6 +102,7 @@
           <tr>
             <th>No</th>
             <th>Nama</th>
+            <th>transfer</th>
             <th>Pilihan Prodi 1</th>
             <th>Pilihan Prodi 2</th>
             <th>Pilihan Prodi 3</th>
@@ -200,6 +201,7 @@
     columns: [
       { data: 'DT_RowIndex' },      
       { data: 'nama_lengkap', name: 'nama_lengkap' },
+      { data: 'transfer', name: 'transfer' },
       { data: 'prodi1', name: 'prodi1' },
       { data: 'prodi2', name: 'prodi2' },
       { data: 'prodi3', name: 'prodi3' },

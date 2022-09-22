@@ -16,7 +16,8 @@ class CreateMahasiswaBarusTable extends Migration
         Schema::create('ms_maba', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_report_maba');
-            $table->string('nama_lengkap');
+            $table->string('nama_lengkap');        
+            $table->string('transfer')->nullable();
             $table->string('prodi1');
             $table->string('prodi2')->nullable();
             $table->string('prodi3')->nullable();

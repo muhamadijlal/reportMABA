@@ -29,13 +29,14 @@ class MahasiswaBaruImport implements ToModel, WithHeadingRow, SkipsOnError, With
                 
         $data = ReportMahasiswaBaru::where('periode', request('periode'))->first();
         return new MahasiswaBaru([
-            'id_report_maba'  => $data->id,            
+            'id_report_maba'  => $data->id,
             'nama_lengkap'    => $row['nama_lengkap'],
-            'prodi1'          => $row['prodi1'],        
+            'prodi1'          => $row['prodi1'],
+            'transfer'        => $row['transfer'],
             'prodi2'          => isset($row['prodi2']) ? $row['prodi2'] : null,
             'prodi3'          => isset($row['prodi3']) ? $row['prodi3'] : null,
             'prodi4'          => isset($row['prodi4']) ? $row['prodi4'] : null,
-            'prodi5'          => isset($row['prodi5']) ? $row['prodi5'] : null,            
+            'prodi5'          => isset($row['prodi5']) ? $row['prodi5'] : null,
             'periode'         => $data->periode,
             'status_kelulusan'=> $row['status_kelulusan'],
         ]);
