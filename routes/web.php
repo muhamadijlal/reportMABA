@@ -5,6 +5,7 @@ use App\Http\Controllers\ImportController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RegisterController;
+use Maatwebsite\Excel\Importer;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,9 @@ Route::middleware('auth')->group( function(){
     Route::post('/import-mahasiswa', [ImportController::class, 'import_json']);
     Route::post('/import', [ImportController::class, 'MahasiswaBaruImport']);
     Route::post('/import/delete-periode', [ImportController::class, 'destroy']);
+    // Add data manualy
+    Route::get('/import-mahasiswa/create', [ImportController::class, 'create'])->name('create');
+    Route::post('/import-mahasiswa/store', [ImportController::class, 'store'])->name('store');
   });
 }); 
 

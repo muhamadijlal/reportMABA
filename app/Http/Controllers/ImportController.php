@@ -94,4 +94,58 @@ class ImportController extends Controller
 
     return redirect('/menu/import-mahasiswa')->with('status','Data periode <p class="font-bold">'. $request->delete_periode.'</p> has been deleted permanently!');
   }
+
+  public function create()
+  {
+    return view('/layouts/create');
+  }
+
+  public function store(Request $request)
+  {
+    $request->validate([
+      'nama_lengkap' => ['required','string'],
+      'prodi1' => ['required','string'],
+      'prodi2' => ['required','string'],
+      'prodi3' => ['required','string'],
+      'periode' => ['required','numeric','min:4'],
+    ]);
+
+    $data = ReportMahasiswaBaru::get();
+    foreach($data as $data){
+      if($data->periode == $request->periode){
+
+        MahasiswaBaru::create([
+          'id_report_maba' => $data->id,
+          'nama_lengkap' => $request->nama_lengkap,
+          'prodi1' => $request->prodi1,
+          'prodi2' => $request->prodi2,
+          'prodi3' => $request->prodi3,
+          'prodi4' => $request->prodi4,
+          'prodi5' => $request->prodi5,
+          'status_kelulusan' => 1,
+          'periode' => $request->periode,
+        ]);
+
+        return redirect('/menu/import-mahasiswa')->with('status',"Data dengan nama {$request->nama_lengkap} berhasil ditambahkan!");
+      }
+      else
+      {
+        $data = ReportMahasiswaBaru::latest()->first();
+
+        MahasiswaBaru::create([
+          'id_report_maba' => $data->count() + 1,
+          'nama_lengkap' => $request->nama_lengkap,
+          'prodi1' => $request->prodi1,
+          'prodi2' => $request->prodi2,
+          'prodi3' => $request->prodi3,
+          'prodi4' => $request->prodi4,
+          'prodi5' => $request->prodi5,
+          'status_kelulusan' => 1,
+          'periode' => $request->periode,
+        ]);
+
+        return redirect('/menu/import-mahasiswa')->with('status',"Data dengan nama {$request->nama_lengkap} berhasil ditambahkan!");
+      }
+    }
+  }
 }

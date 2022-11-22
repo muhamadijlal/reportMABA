@@ -16,7 +16,6 @@
     <div class="d-flex align-items-end row">
       <div class="col-sm-7">
         <div class="card-body">
-          {{-- <h3 class="card-title text-primary">Selamat Datang! 🎉</h3> --}}
           <h5 class="mb-4">Silahkan import data rekap mahasiswa baru dibawah ini, dan format file nya <span class="fw-bold text-success">.xlsx</span> atau <span class="fw-bold text-success">.xls</span> ya.</h5>
           <a href="{{ asset('assets/template/template-rekapPMB.xlsx') }}">Download template disini.</a>
         </div>
@@ -95,6 +94,7 @@
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCenter">
           Import Excel
         </button>
+        <a href="{{ route('create') }}" class="btn btn-outline-success"><i class="bx bx-plus-medical"></i> data manualy</a>
       </div>
       
       <table class="table table-striped" id="myTable">
