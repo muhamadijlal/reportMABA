@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MahasiswaBaru;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ReportMahasiswaBaru;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,18 @@ class ApieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function pmb_collection()
+    {
+        $collections = MahasiswaBaru::where('periode','2020')->get();
+
+        return response()->json([
+            'message' => "Success!, data pmb 2020 ready to serve.",
+            'data'    => $collections,
+            'status'  => 200,
+        ], 200);
+    }
+
     public function index()
     {
         $collections = ReportMahasiswaBaru::get();

@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+// Api Import
+Route::get('/data/pmb/2020', [ApieController::class, 'pmb_collection']);
+
+//  Api Report
 Route::get('/reportPMB/index',[ApieController::class, 'index']);
 Route::get('/show/total/prodi/api/{id}', [ApieController::class, 'show']);
 Route::post('/reportPMB/store',[APieController::class, 'store']);
