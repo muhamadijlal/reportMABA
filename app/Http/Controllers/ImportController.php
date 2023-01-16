@@ -25,8 +25,7 @@ class ImportController extends Controller
       $periode = $request->deletePeriode;
       $data =  MahasiswaBaru::where('periode', $periode)->delete();    
     }
-    
-    if($request->input('periodFrom') != null)
+    elseif($request->input('periodFrom') != null)
     {
       $from = $request->periodFrom;
       $to = $request->periodTo;
@@ -61,8 +60,7 @@ class ImportController extends Controller
     }
     // Validation periode report maba is exist or not
     else
-    {    
-
+    {
       $file = $request->file('file');     
       $filename = date('YmdHis').str_replace(" ", "_", $file->getClientOriginalName());         
       Storage::putFileAs('file_import', $file, $filename);
@@ -107,7 +105,7 @@ class ImportController extends Controller
       'prodi1' => ['required','string'],
       'prodi2' => ['required','string'],
       'prodi3' => ['required','string'],
-      'periode' => ['required','numeric','min:4'],
+      'periode' => ['required','numeric','digits:4'],
     ]);
 
     $data = ReportMahasiswaBaru::get();

@@ -2,9 +2,7 @@
 
 namespace Database\Factories;
 
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
@@ -16,11 +14,11 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'user',
-            'email' => 'user@user.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('user123'),
-            'remember_token' => Str::random(10),         
+            // 'name' => 'user',
+            // 'email' => 'user@user.com',
+            // 'email_verified_at' => now(),
+            // 'password' => Hash::make('user123'),
+            // 'remember_token' => Str::random(10),         
         ];
     }
 
