@@ -17,7 +17,6 @@ class ReportController extends Controller
      */
     public function index()
     {
-
       return view('layouts.report');
     }
 
@@ -115,7 +114,7 @@ class ReportController extends Controller
         'jumlah_maba_transfer'      => 'required',
         'jumlah_mahasiswa_reguler'  => 'required',
         'jumlah_mahasiswa_transfer' => 'required',
-        'laporan_pmb'               => 'required|mimes:pdf|file|max:15000'
+        'laporan_pmb'               => 'required|mimes:xlsx,xls,pdf,csv|file|max:15000'
       ]);
 
       $file = $request->file('laporan_pmb');     
@@ -291,5 +290,24 @@ class ReportController extends Controller
       }
 
       return redirect('/dashboard')->with('error','Data on import periode '. $data->periode .' must be deleted first!');
+    }
+
+    public function index_report(){
+      $data =  DB::table('ms_maba')
+                ->select('periode','gelombang','prodi1 as kode_prodi',
+                  DB::raw('count(id) as D'),
+                  DB::raw('count(CASE WHEN ujian = 1 THEN 1 END) as U'),
+                  DB::raw('count(CASE WHEN registrasi = 1 THEN 1 END) as R'),
+                )
+                ->groupBy('periode','prodi1','gelombang')
+                ->get();
+
+      $collection = MahasiswaBaru::all();
+
+      foreach($collection as $item){
+        dd($item->prodi1->prodi);
+      }
+
+      return view('layouts.report-data', compact('data'));
     }
 }

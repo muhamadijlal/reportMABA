@@ -14,7 +14,11 @@ class MahasiswaBaru extends Model
     protected $table = 'ms_maba';    
     protected $guarded = ["id"];
 
-    public function Report_maba(){
-        return $this->belongsTo(ReportMahasiswaBaru::class, 'id_report_maba');
+    protected function Report_maba(){
+        return $this->belongsTo(ReportMahasiswaBaru::class, 'id');
+    }
+
+    protected function prodi(){
+        return $this->belongsTo(ms_prodi::class, 'kode_prodi');
     }
 }

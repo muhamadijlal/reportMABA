@@ -102,12 +102,13 @@
           <tr>
             <th>No</th>
             <th>Nama</th>
-            <th>transfer</th>
             <th>Pilihan Prodi 1</th>
             <th>Pilihan Prodi 2</th>
             <th>Pilihan Prodi 3</th>
             <th>Pilihan Prodi 4</th>
             <th>Pilihan Prodi 5</th>
+            <th>Gelombang</th>>
+            <th>Transfer</th>
             <th>Status Kelulusan</th>
             <th>Periode</th>
           </tr>
@@ -199,14 +200,15 @@
       }
     },
     columns: [
-      { data: 'DT_RowIndex' },      
+      { data: 'DT_RowIndex' },    
       { data: 'nama_lengkap', name: 'nama_lengkap' },
-      { data: 'transfer', name: 'transfer' },
       { data: 'prodi1', name: 'prodi1' },
       { data: 'prodi2', name: 'prodi2' },
       { data: 'prodi3', name: 'prodi3' },
       { data: 'prodi4', name: 'prodi4' },
       { data: 'prodi5', name: 'prodi5' },
+      { data: 'gelombang', name: 'gelombang' },
+      { data: 'transfer', name: 'transfer' },
       { data: 'status_kelulusan', name: 'status_kelulusan' },
       { data: 'periode', name: 'periode' },
     ]

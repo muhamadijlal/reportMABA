@@ -41,6 +41,11 @@
               <div data-i18n="Notifications">Import Data</div>
             </a>
           </li>         
+          <li class="menu-item">
+            <a href="/menu/data-report" class="menu-link">
+              <div data-i18n="Notifications">Report Data</div>
+            </a>
+          </li>         
         </ul>
       </li>      
     </li>    

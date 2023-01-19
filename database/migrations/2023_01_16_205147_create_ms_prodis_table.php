@@ -15,7 +15,7 @@ class CreateMsProdisTable extends Migration
     {
         Schema::create('ms_prodi', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_prodi');
+            $table->integer('kode_prodi');
             $table->string('nama_prodi');
             $table->string('singkatan');
             $table->timestamps();

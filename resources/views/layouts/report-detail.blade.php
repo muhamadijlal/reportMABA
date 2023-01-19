@@ -19,7 +19,7 @@
             <th>Periode</th>  
             @foreach ($all as $item)
               <th>{{ $item->prodi }}</th>
-            @endforeach            
+            @endforeach
           </tr>
         </thead>
         <tbody>

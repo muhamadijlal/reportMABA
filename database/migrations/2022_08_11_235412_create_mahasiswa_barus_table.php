@@ -18,18 +18,20 @@ class CreateMahasiswaBarusTable extends Migration
             $table->foreignId('id_report_maba');
             $table->string('nama_lengkap');        
             $table->boolean('transfer')->nullable();
-            $table->string('prodi1');
+            $table->bigInteger('prodi1');
             $table->string('prodi2')->nullable();
             $table->string('prodi3')->nullable();
             $table->string('prodi4')->nullable();
             $table->string('prodi5')->nullable();
             $table->string('gelombang');
-            $table->boolean('daftar');
             $table->boolean('ujian');
             $table->boolean('registrasi');
             $table->boolean('status_kelulusan')->nullable();
             $table->string('periode');
             $table->timestamps();
+
+
+            // $table->foreign('prodi1')->references('kode_prodi')->on('ms_prodi');
         });
     }
 

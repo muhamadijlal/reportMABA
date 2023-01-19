@@ -14,7 +14,7 @@ class ReportMahasiswaBaru extends Model
     protected $guarded = ['id'];
     
 
-    public function Ms_maba(){
+    protected function Ms_maba(){
         return $this->hasMany(MahasiswaBaru::class, 'id_report_maba');
     }
 }
