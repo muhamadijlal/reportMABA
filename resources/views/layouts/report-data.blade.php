@@ -1,6 +1,9 @@
 @extends('master')
 
 @section('content')
+<div class="nav justify-content-end">
+  {{ Breadcrumbs::render('report-data', $periode) }}
+</div>
 <div class="col-lg-12 mb-4 order-0">  
     <div class="card">
       <h5 class="card-header">Tabel Data Mahasiswa Baru {{ $periode }}</h5>

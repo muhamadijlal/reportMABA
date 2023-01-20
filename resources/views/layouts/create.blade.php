@@ -4,7 +4,7 @@
 
 <div class="col-xl">
   <div class="nav justify-content-end">
-    {{-- {{ Breadcrumbs::render('add-report') }} --}}
+    {{ Breadcrumbs::render('manual-import') }}
   </div>
   <div class="card mb-4">
     <div class="card-header d-flex justify-content-between align-items-center">
