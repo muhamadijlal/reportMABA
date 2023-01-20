@@ -14,12 +14,12 @@
             {{ session('error') }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         @endif
-        <table class="table table-striped text-center">
+        <table class="table table-striped">
           <thead>
             <tr>
               <th rowspan="2">Nama Prodi</th>
               @foreach ($data->unique('gelombang') as $item)
-                <th colspan="3">Gelombang {{ $item->gelombang }}</th>
+                <th colspan="3" class="text-center">Gelombang {{ $item->gelombang }}</th>
               @endforeach
               <th colspan="3" class="text-center">Total</th>
             </tr>
@@ -37,7 +37,7 @@
           <tbody class="table-border-bottom-0">
             @foreach ($data->unique('kode_prodi') as $collection)
             <tr>
-              <td>{{ $collection->kode_prodi->prodi }}</td>
+              <td>{{ $collection->prodi }}</td>
               @foreach ($data as $item)
                 @if($item->kode_prodi == $collection->kode_prodi)
                   <td>({{ $item->D }}</td>

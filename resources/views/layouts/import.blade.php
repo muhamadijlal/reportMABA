@@ -176,7 +176,7 @@
   let table = $('#myTable').DataTable({
     processing: true,
     dom:"lBfrtip",
-    order: [[0, 'desc']],
+    order: [[0, 'asc']],
     buttons: [
       'copy','excel'
     ],

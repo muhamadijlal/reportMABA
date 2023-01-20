@@ -294,19 +294,14 @@ class ReportController extends Controller
 
     public function index_report(){
       $data =  DB::table('ms_maba')
-                ->select('periode','gelombang','prodi1 as kode_prodi',
+                ->select('periode','gelombang', 'prodi1 as kode_prodi',
+                  DB::raw('(SELECT nama_prodi FROM ms_prodi WHERE ms_maba.prodi1 = ms_prodi.kode_prodi) as prodi'),
                   DB::raw('count(id) as D'),
                   DB::raw('count(CASE WHEN ujian = 1 THEN 1 END) as U'),
                   DB::raw('count(CASE WHEN registrasi = 1 THEN 1 END) as R'),
                 )
                 ->groupBy('periode','prodi1','gelombang')
                 ->get();
-
-      $collection = MahasiswaBaru::all();
-
-      foreach($collection as $item){
-        dd($item->prodi1->prodi);
-      }
 
       return view('layouts.report-data', compact('data'));
     }

@@ -31,13 +31,33 @@ class ImportController extends Controller
     {
       $from = $request->periodFrom;
       $to = $request->periodTo;
-      $data = MahasiswaBaru::whereBetween('periode',[$from, $to])
-                            ->orderBy('id','desc')
-                            ->get();
+      // $data = MahasiswaBaru::whereBetween('periode',[$from, $to])
+      //                       ->orderBy('id','desc')
+      //                       ->get();
+      $data = DB::select(DB::raw('
+        SELECT 
+          id, nama_lengkap,
+          (SELECT nama_prodi FROM ms_prodi WHERE ms_maba.prodi1 = ms_prodi.kode_prodi) AS prodi1,
+          (SELECT nama_prodi FROM ms_prodi WHERE ms_maba.prodi2 = ms_prodi.kode_prodi) AS prodi2,
+          (SELECT nama_prodi FROM ms_prodi WHERE ms_maba.prodi3 = ms_prodi.kode_prodi) AS prodi3,
+          (SELECT nama_prodi FROM ms_prodi WHERE ms_maba.prodi4 = ms_prodi.kode_prodi) AS prodi4,
+          (SELECT nama_prodi FROM ms_prodi WHERE ms_maba.prodi5 = ms_prodi.kode_prodi) AS prodi5,
+          gelombang, transfer, status_kelulusan, periode
+        FROM ms_maba WHERE periode ='.$from.' OR '.$to.''));  
     }
     else
     {
-      $data = MahasiswaBaru::get();
+      $data = DB::select(DB::raw('
+      SELECT 
+        id, nama_lengkap,
+        (SELECT nama_prodi FROM ms_prodi WHERE ms_maba.prodi1 = ms_prodi.kode_prodi) AS prodi1,
+        (SELECT nama_prodi FROM ms_prodi WHERE ms_maba.prodi2 = ms_prodi.kode_prodi) AS prodi2,
+        (SELECT nama_prodi FROM ms_prodi WHERE ms_maba.prodi3 = ms_prodi.kode_prodi) AS prodi3,
+        (SELECT nama_prodi FROM ms_prodi WHERE ms_maba.prodi4 = ms_prodi.kode_prodi) AS prodi4,
+        (SELECT nama_prodi FROM ms_prodi WHERE ms_maba.prodi5 = ms_prodi.kode_prodi) AS prodi5,
+        gelombang, transfer, status_kelulusan, periode
+      FROM ms_maba
+      '));      
     }
 
     return datatables()
