@@ -1,4 +1,7 @@
 <!-- Menu -->
+@php
+  $data = App\Models\ReportMahasiswaBaru::pluck('periode');
+@endphp
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
 
   <div class="app-brand demo">
@@ -40,14 +43,24 @@
             <a href="/menu/import-mahasiswa" class="menu-link">
               <div data-i18n="Notifications">Import Data</div>
             </a>
-          </li>         
-          <li class="menu-item">
-            <a href="/menu/data-report" class="menu-link">
-              <div data-i18n="Notifications">Report Data</div>
-            </a>
-          </li>         
+          </li>
         </ul>
-      </li>      
+      </li>  
+      <li class="menu-item {{ Request::is('data-report/*') ? 'open active' : '' }} {{ $data->count() == 0 ? 'd-none' : '' }}" style="">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon bx bx-file"></i>
+          <div data-i18n="Report Data">Report data</div>
+        </a>
+        <ul class="menu-sub">
+          @foreach ($data as $tahun)
+            <li class="menu-item {{ Request::is('data-report/periode/*') ? 'active' : '' }}">
+              <a href="{{ url('data-report/periode/'.$tahun) }}" class="menu-link">
+                <div>{{ $tahun }}</div>
+              </a>
+            </li>
+          @endforeach
+        </ul>
+      </li>    
     </li>    
   </ul>
 

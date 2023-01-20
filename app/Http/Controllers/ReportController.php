@@ -157,7 +157,8 @@ class ReportController extends Controller
       }      
 
       $all = DB::table('ms_maba')
-      ->select('periode','prodi1 as prodi', 
+      ->select('periode',
+      DB::raw('(SELECT nama_prodi FROM ms_prodi WHERE ms_maba.prodi1 = ms_prodi.kode_prodi) as prodi'), 
       DB::raw('count(prodi1)+
                count(prodi2)+
                count(prodi3)+
@@ -168,7 +169,8 @@ class ReportController extends Controller
       ->get();
 
       $transfer = DB::table('ms_maba')
-      ->select('periode','prodi1 as prodi', 
+      ->select('periode',
+      DB::raw('(SELECT nama_prodi FROM ms_prodi WHERE ms_maba.prodi1 = ms_prodi.kode_prodi) as prodi'), 
       DB::raw('count(prodi1)+
                count(prodi2)+
                count(prodi3)+
@@ -180,7 +182,8 @@ class ReportController extends Controller
       ->get();
 
       $reguler = DB::table('ms_maba')
-      ->select('periode','prodi1 as prodi', 
+      ->select('periode',
+      DB::raw('(SELECT nama_prodi FROM ms_prodi WHERE ms_maba.prodi1 = ms_prodi.kode_prodi) as prodi'),
       DB::raw('count(prodi1)+
                count(prodi2)+
                count(prodi3)+
@@ -292,7 +295,7 @@ class ReportController extends Controller
       return redirect('/dashboard')->with('error','Data on import periode '. $data->periode .' must be deleted first!');
     }
 
-    public function index_report(){
+    public function index_report($periode){
       $data =  DB::table('ms_maba')
                 ->select('periode','gelombang', 'prodi1 as kode_prodi',
                   DB::raw('(SELECT nama_prodi FROM ms_prodi WHERE ms_maba.prodi1 = ms_prodi.kode_prodi) as prodi'),
@@ -301,8 +304,9 @@ class ReportController extends Controller
                   DB::raw('count(CASE WHEN registrasi = 1 THEN 1 END) as R'),
                 )
                 ->groupBy('periode','prodi1','gelombang')
+                ->where('periode',$periode)
                 ->get();
 
-      return view('layouts.report-data', compact('data'));
+      return view('layouts.report-data', compact('data','periode'));
     }
 }

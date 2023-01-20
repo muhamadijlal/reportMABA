@@ -53,8 +53,8 @@ Route::middleware('auth')->group( function(){
     Route::get('/import-mahasiswa/create', [ImportController::class, 'create'])->name('create');
     Route::post('/import-mahasiswa/store', [ImportController::class, 'store'])->name('store');
 
-    // report data
-    Route::get('/data-report', [ReportController::class, 'index_report']);
   });
+  // report data
+  Route::get('/data-report/periode/{periode}', [ReportController::class, 'index_report']);
 }); 
 
