@@ -15,7 +15,6 @@
               @foreach ($data->unique('gelombang') as $item)
                 <th colspan="3" class="text-center">Gelombang {{ $item->gelombang }}</th>
               @endforeach
-              <th colspan="3" class="text-center">Total</th>
             </tr>
             <tr>
               @foreach($data->unique('gelombang') as $item)
@@ -23,9 +22,6 @@
                 <th>U</th>
                 <th>R</th>
               @endforeach
-              <th>D</th>
-              <th>U</th>
-              <th>R</th>
             </tr>
           </thead>
           <tbody class="table-border-bottom-0">
@@ -39,38 +35,9 @@
                   <td>{{ $item->R }})</td>
                 @endif
               @endforeach
-                <td></td>
-                <td></td>
-                <td></td>
             </tr>
             @endforeach
           </tbody>
-          <tfoot>
-            <tr>
-              <td>Total</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-          </tfoot>
         </table>
         <small>D = Calon Mahasiswa yang telah mendaftar</small><br>
         <small>U = Calon Mahasiswa yang telah melakukan ujian PMB</small><br>
