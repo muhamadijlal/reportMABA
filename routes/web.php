@@ -55,6 +55,6 @@ Route::middleware('auth')->group( function(){
 
   });
   // report data
-  Route::get('/data-report/periode/{periode}', [ReportController::class, 'index_report']);
+  Route::get('/data-report/periode/{periode}', [ReportController::class, 'index_report'])->name('report-data');
 }); 
 

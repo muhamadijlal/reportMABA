@@ -23,11 +23,23 @@ Breadcrumbs::for('edit-report', function (BreadcrumbTrail $trail, $data) {
 // dashboard > Add report
 Breadcrumbs::for('add-report', function (BreadcrumbTrail $trail) {
   $trail->parent('dashboard');
-  $trail->push('Add Report', route('add-report'));
+  $trail->push('Tambah Report', route('add-report'));
 });
 
 // dashboard > Import
 Breadcrumbs::for('import', function (BreadcrumbTrail $trail) {
   $trail->parent('dashboard');
   $trail->push('Import', route('import'));
+});
+
+// Dashboard > report data
+Breadcrumbs::for('report-data', function($trail, $data){
+  $trail->parent('dashboard');
+  $trail->push('Report data', route('report-data', $data));
+});
+
+// Dashboard > import > manual
+Breadcrumbs::for('manual-import', function($trail){
+  $trail->parent('import');
+  $trail->push('Tambah', route('create'));
 });

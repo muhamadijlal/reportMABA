@@ -1,6 +1,9 @@
 @extends('master')
 
 @section('content')
+<div class="nav justify-content-end">
+  {{ Breadcrumbs::render('report-data', $periode) }}
+</div>
 <div class="col-lg-12 mb-4 order-0">  
     <div class="card">
       <h5 class="card-header">Tabel Data Mahasiswa Baru {{ $periode }}</h5>
@@ -12,7 +15,6 @@
               @foreach ($data->unique('gelombang') as $item)
                 <th colspan="3" class="text-center">Gelombang {{ $item->gelombang }}</th>
               @endforeach
-              <th colspan="3" class="text-center">Total</th>
             </tr>
             <tr>
               @foreach($data->unique('gelombang') as $item)
@@ -20,9 +22,6 @@
                 <th>U</th>
                 <th>R</th>
               @endforeach
-              <th>D</th>
-              <th>U</th>
-              <th>R</th>
             </tr>
           </thead>
           <tbody class="table-border-bottom-0">
@@ -36,38 +35,9 @@
                   <td>{{ $item->R }})</td>
                 @endif
               @endforeach
-                <td></td>
-                <td></td>
-                <td></td>
             </tr>
             @endforeach
           </tbody>
-          <tfoot>
-            <tr>
-              <td>Total</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-            </tr>
-          </tfoot>
         </table>
         <small>D = Calon Mahasiswa yang telah mendaftar</small><br>
         <small>U = Calon Mahasiswa yang telah melakukan ujian PMB</small><br>
