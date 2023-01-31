@@ -296,17 +296,52 @@ class ReportController extends Controller
     }
 
     public function index_report($periode){
-      $data =  DB::table('ms_maba')
-                ->select('periode','gelombang', 'prodi1 as kode_prodi',
-                  DB::raw('(SELECT nama_prodi FROM ms_prodi WHERE ms_maba.prodi1 = ms_prodi.kode_prodi) as prodi'),
-                  DB::raw('count(id) as D'),
-                  DB::raw('count(CASE WHEN ujian = 1 THEN 1 END) as U'),
-                  DB::raw('count(CASE WHEN registrasi = 1 THEN 1 END) as R'),
-                )
-                ->groupBy('periode','prodi1','gelombang')
-                ->where('periode',$periode)
-                ->get();
 
-      return view('layouts.report-data', compact('data','periode'));
+      $data = DB::table('ms_maba')
+              ->join('ms_prodi','ms_maba.prodi1','=','ms_prodi.kode_prodi')
+              ->select('ms_maba.periode','ms_maba.gelombang','ms_prodi.nama_prodi', 'ms_maba.prodi1 AS kode_prodi',
+                DB::raw('count(ms_maba.id) AS D'),
+                DB::raw('count(case when ujian = 1 then 1 end) as U'),
+                DB::raw('count(CASE WHEN registrasi = 1 THEN 1 END) as R'),
+              )
+              ->groupBy('prodi1','gelombang')
+              ->where('periode',$periode)
+              ->get();
+
+      $dataPerProdi = DB::table('ms_maba')
+              ->join('ms_prodi','ms_maba.prodi1','=','ms_prodi.kode_prodi')
+              ->select('ms_maba.periode','ms_maba.gelombang','ms_prodi.nama_prodi', 'ms_maba.prodi1 AS kode_prodi',
+                DB::raw('count(ms_maba.id) AS D'),
+                DB::raw('count(case when ujian = 1 then 1 end) as U'),
+                DB::raw('count(CASE WHEN registrasi = 1 THEN 1 END) as R'),
+              )
+              ->groupBy('prodi1')
+              ->where('periode',$periode)
+              ->get();
+
+      $dataPerGelombang = DB::table('ms_maba')
+              ->join('ms_prodi','ms_maba.prodi1','=','ms_prodi.kode_prodi')
+              ->select('ms_maba.periode','ms_maba.gelombang','ms_prodi.nama_prodi', 'ms_maba.prodi1 AS kode_prodi',
+                DB::raw('count(ms_maba.id) AS D'),
+                DB::raw('count(case when ujian = 1 then 1 end) as U'),
+                DB::raw('count(CASE WHEN registrasi = 1 THEN 1 END) as R'),
+              )
+              ->groupBy('gelombang')
+              ->where('periode',$periode)
+              ->get();
+
+      foreach ($data as $item) {
+        if($item->gelombang == $item->gelombang){
+          $arrD[] = $item->D;
+          $arrU[] = $item->U;
+          $arrR[] = $item->R;
+        }
+      }
+
+      $totalD = array_sum($arrD); //total daftar keseluruhan gelombang dan prodi
+      $totalU = array_sum($arrU); //total daftar keseluruhan gelombang dan prodi
+      $totalR = array_sum($arrR); //total daftar keseluruhan gelombang dan prodi
+
+      return view('layouts.report-data', compact('data','dataPerProdi','dataPerGelombang','periode','totalD','totalU','totalR'));
     }
 }
