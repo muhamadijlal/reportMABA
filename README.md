@@ -21,11 +21,6 @@ php artisan key:generate
 
 php artisan serve
 ```
-## credentials
-| Email  | Password |
-| ------------- | ------------- |
-| user@user.com  | user123  |
-
 ## tools
 library : [laravel excel](https://laravel-excel.com/) | [Bootstrap5](https://getbootstrap.com/docs/5.0/getting-started/introduction/) | [Yajra](https://yajrabox.com/docs/laravel-datatables/master/installation)
 <br>
